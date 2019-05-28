@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,基础,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于文件I/O的一些内容">
+<meta name="keywords" content="C++,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer Plus 学习笔记五">
+<meta property="og:url" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/index.html">
+<meta property="og:site_name" content="CYJ的个人博客">
+<meta property="og:description" content="关于文件I/O的一些内容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/outfile.cpp输出.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/outfile.cpp文本输出.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/cstdlib中对于EXIT_FAILURE的定义.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/cstdlib中对于EXIT_SUCCESS的定义.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/scores.txt.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/sumafile.cpp输出.png">
+<meta property="og:updated_time" content="2019-05-09T02:52:50.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Primer Plus 学习笔记五">
+<meta name="twitter:description" content="关于文件I/O的一些内容">
+<meta name="twitter:image" content="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/C++-Primer-Plus-学习笔记五/outfile.cpp输出.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/">
+
+
+
+
+
+  <title>C++ Primer Plus 学习笔记五 | CYJ的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/DZDcyj"><img style=" position:absolute; top:0;left:0;border:0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYJ的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/2019/05/02/C++-Primer-Plus-学习笔记五/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYJ的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ Primer Plus 学习笔记五</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-02T21:50:15+08:00">
+                2019-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/02/C++-Primer-Plus-学习笔记五/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/02/C++-Primer-Plus-学习笔记五/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于文件I/O的一些内容<br>
+<a id="more"></a>
+</p>
+<h2 id="简单文件输入-输出"><a href="#简单文件输入-输出" class="headerlink" title="简单文件输入/输出"></a>简单文件输入/输出</h2><h3 id="文本I-O和文本文件"><a href="#文本I-O和文本文件" class="headerlink" title="文本I/O和文本文件"></a>文本I/O和文本文件</h3><p>我们这里讨论一下关于文本I/O的概念。当我们使用cin进行输入时，程序将输入视为一系列的字节，其中每个字节都被解释为字符编码。不管目标数据类型是什么，输入一开始都是字符数据——文本数据。然后，cin对象负责将文本转换为其他类型。例如：<br>假设有如下输入行：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">38<span class="selector-class">.5</span> 19<span class="selector-class">.2</span></span><br></pre></td></tr></table></figure></p>
+<p>首先，我们看一下char数据类型的情况：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> ch;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; ch;</span><br></pre></td></tr></table></figure></p>
+<p>输入行中的第一个字符被赋给ch。这里，第一个字符为3，其字符编码(二进制)被存储在变量ch中。输入和目标变量都是字符，因此不需要进行转换。注意，这里存储的数值3，而是字符3的编码。执行上述输入语句后，输入队列的下一个字符为字符8，下一个输入操作将对其进行处理。<br>接下来康康int类型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; n;</span><br></pre></td></tr></table></figure></p>
+<p>在这种情况下，cin将不断读取，直到遇到非数字字符。也即是，它将读取3和8，这样句点将成为输入队列的下一个字符，cin通过计算发现，这两个字符对应数值38，因此将38的二进制编码复制到变量n中。<br>接下来便是double类型了：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> x;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; x;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下，cin将不断读取，直至遇到第一个不属于浮点数的字符。也就是说，cin读取3、8、句点和5使得空格成为输入队列的下一个字符。cin通过计算发现，这四个字符对应数值38.5，因此将38.5的二进制编码(浮点格式)复制到变量x中。<br>那么char数组又如何？<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> word[<span class="number">50</span>];</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; word;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下，cin将不断读取，直到遇到空白字符。也即是，它读取3、8、句点和5。使得空格成为输入队列的下一个字符。然后，cin将这4个字符的编码存储到数组word中，并在末尾加上一个空字符。这里不需要进行任何转换。<br>最后便是另一种使用char数组的情况：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> word[<span class="number">50</span>];</span><br><span class="line"><span class="built_in">cin</span>.getline(word, <span class="number">50</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下，cin将不断读取直至遇上换行符(示例输入少于50个字符)。所有字符都将被存储到数组word中，并在末尾加上一个空字符。换行符被丢弃，输入队列中的下一个字符是下一行中的第一个字符。<br>我们这里讨论的I/O相当于控制台I/O，因此仅适用于文本文件。</p>
+<h3 id="写入到文本文件"><a href="#写入到文本文件" class="headerlink" title="写入到文本文件"></a>写入到文本文件</h3><p>对于文件输入，C++使用类似于cout的东西。下面来复习一下：  </p>
+<ul>
+<li>必须包含头文件iostream。</li>
+<li>头文件iostream定义了一个用于处理输出的ostream类。 </li>
+<li>头文件iostream声明了一个名为cout的ostream变量(对象)。</li>
+<li>必须指明名称空间std；例如，为引用元素cout和endl，必须使用编译指令using或前缀std::。</li>
+<li>可以结合使用cout和运算符&lt;&lt;来显示各种类型的数据。  </li>
+</ul>
+<p>文件输出与此十分类似：  </p>
+<ul>
+<li>必须包含头文件fstream。</li>
+<li>头文件fstream定义了一个用于处理输出的ofstream类。</li>
+<li>需要声明一个或多个ofstream变量(对象)，并以自己喜欢的方式对其进行命名，条件是遵守常用的命名规则。</li>
+<li>必须指明名称空间std；例如，为引用元素ofstream，必须使用编译指令using或前缀std::。</li>
+<li>需要将ofstream对象与文件关联起来。为此，方法之一是使用open()方法。</li>
+<li>使用完文件后，应使用方法close()将其关闭。</li>
+<li>可结合使用ofstream对象和运算符&lt;&lt;来输出各种类型的数据。  </li>
+</ul>
+<p>注意，虽然头文件iostream提供了一个预先定义好的名为cout的ostream对象，但必须声明自己的ofstream对象，为其命名，并将其与文件关联。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ofstream outFile;	<span class="comment">// outFile an ofstream object</span></span><br><span class="line">ofstream fout;		<span class="comment">// fout an ofstream object</span></span><br></pre></td></tr></table></figure></p>
+<p>下面演示了如何将这种对象与特定的文件关联起来：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">outFile.open(<span class="string">"fish.txt"</span>);	<span class="comment">// outFile used to write to the fish.txt file</span></span><br><span class="line"><span class="keyword">char</span> filename[<span class="number">50</span>];</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; filename;		<span class="comment">// user specifies a name</span></span><br><span class="line">fout.open(filename);		<span class="comment">// fout used to read specified file</span></span><br></pre></td></tr></table></figure></p>
+<p>注意，方法open()接受一个C-风格字符串作为参数，这可以是一个字面字符串，也可以是存储在数组中的字符串。<br>下面演示了如何使用这种对象：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> wt = <span class="number">125.8</span>;</span><br><span class="line">outFile &lt;&lt; wt;			<span class="comment">// write a number to fish.txt</span></span><br><span class="line"><span class="keyword">char</span> line[<span class="number">81</span>] = <span class="string">"Objects are closer than they appear."</span>;</span><br><span class="line">fout &lt;&lt; line &lt;&lt; <span class="built_in">endl</span>;		<span class="comment">// write a line of text</span></span><br></pre></td></tr></table></figure></p>
+<p>重要的是，声明一个ofstream对象并将其同文件关联起来后，便可以像使用cout那样使用它。所有可用于cout的方法(如&lt;&lt;、endl和setf())都可用于ofstream对象(如前述示例中的outFile和fout)。<br>总之，使用文件输出的主要步骤如下：  </p>
+<ol>
+<li>包含头文件fstream。  </li>
+<li>创建一个ofstream对象。  </li>
+<li>将该ofstream对象同一个文件关联起来。  </li>
+<li>就像使用cout那样使用该ofstream对象。  </li>
+</ol>
+<p>下列程序演示了这种方法。它要求用户输入信息，然后将信息显示到屏幕上，再将这些信息写入到文件中。读者可以使用文本编辑器来查看该输出文件内容。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//outfile.cpp -- writing to a file</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> automobile[<span class="number">50</span>];</span><br><span class="line">	<span class="keyword">int</span> year;</span><br><span class="line">	<span class="keyword">double</span> a_price;</span><br><span class="line">	<span class="keyword">double</span> d_price;</span><br><span class="line"></span><br><span class="line">	ofstream outFile;			<span class="comment">// create object for output</span></span><br><span class="line">	outFile.open(<span class="string">"carinfo.txt"</span>);		<span class="comment">// associate with a file</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter the make and model of automobile: "</span>;</span><br><span class="line">	<span class="built_in">cin</span>.getline(automobile, <span class="number">50</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter the model year: "</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; year;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter the original asking price: "</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; a_price;</span><br><span class="line">	d_price = <span class="number">0.913</span>*a_price;</span><br><span class="line"></span><br><span class="line"><span class="comment">// display information on screen with cout</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; fixed;</span><br><span class="line">	<span class="built_in">cout</span>.precision(<span class="number">2</span>);</span><br><span class="line">	<span class="built_in">cout</span>.setf(ios_base::showpoint);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Make and model: "</span> &lt;&lt; automobile &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Year: "</span> &lt;&lt; year &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Was asking $"</span> &lt;&lt; a_price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Now asking $"</span> &lt;&lt; d_price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// now do exact same things using outFile instead of cout</span></span><br><span class="line"></span><br><span class="line">	outFile &lt;&lt; fixed;</span><br><span class="line">	outFile.precision(<span class="number">2</span>);</span><br><span class="line">	outFile.setf(ios_base::showpoint);</span><br><span class="line">	outFile &lt;&lt; <span class="string">"Make and model: "</span> &lt;&lt; automobile &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	outFile &lt;&lt; <span class="string">"Year: "</span> &lt;&lt; year &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	outFile &lt;&lt; <span class="string">"Was asking $"</span> &lt;&lt; a_price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	outFile &lt;&lt; <span class="string">"Now asking $"</span> &lt;&lt; d_price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	outFile.close();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该程序的最后一部分与cout部分相同，只是将cout替换为outFile而已。下面是该程序的运行情况：<br><img src="C++-Primer-Plus-学习笔记五/outfile.cpp输出.png" alt="输出"><br>屏幕输出使用的是cout的结果。如果我们查看源文件outfile.cpp的目录，将看到一个名为carinfo.txt的新文件，其中包含outFile生成的输出。打开文本编辑器，显示如下：<br><img src="C++-Primer-Plus-学习笔记五/outfile.cpp文本输出.png" alt="文本输出"><br>正如你们所见，outFile将屏幕上的内容写入到了文件carinfo.txt中。</p>
+<h4 id="程序说明"><a href="#程序说明" class="headerlink" title="程序说明"></a>程序说明</h4><p>在程序中，声明一个ofstream对象后，便可以使用方法open()将该对象和特定文件关联起来：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ofstream outFile;			<span class="comment">// create object for output</span></span><br><span class="line">outFile.open(<span class="string">"carinfo.txt"</span>);		<span class="comment">// associate with a file</span></span><br></pre></td></tr></table></figure></p>
+<p>程序使用完该文件后，应当将其关闭：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outFile.close();</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，方法close()不需要参数，这是因为outFile已经同特定的文件关联起来了。如果忘记关闭文件，程序正常终止时将自动关闭它。<br>outFile可以使用cout可使用的任何方法。它不但能够使用运算符&lt;&lt;，还可以使用各种格式化方法，如self()和precision()。这些方法只影响调用它们的对象。例如，对于不同的对象，可以提供不同的值：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span>.precision(<span class="number">2</span>);		<span class="comment">// use a precision of 2 for the display</span></span><br><span class="line">outFile.precision(<span class="number">4</span>);		<span class="comment">// use a precision of 4 for the display</span></span><br></pre></td></tr></table></figure></p>
+<p>需要记住的是，创建好ofstream对象后(如outFile)后，便可以像使用cout一样使用它。<br>回到open()：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outFile.open(<span class="string">"carinfo.txt"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>在这里，运行程序之前，文件carinfo.txt并不存在，这种情况下，方法open()将新建一个名为carinfo.txt的文件。如果在此时运行该程序，则文件carinfo.txt存在，情况何如？默认情况下，open()将截断该文件，即将其长度截短到零——丢弃原有的内容，然后将新的输出加入到该文件中。之后我们将学习如何更改这种默认行为。<br><strong>警告：打开已有的文件，以接受输出时，默认将它长度截短为零，因此原来的内容将丢失。</strong><br>打开文件用于接受输入时可能失败。例如，指定的文件可能已经存在，但禁止对其进行访问。因此，细心的程序员将检查打开文件的操作是否成功，这将在下一个例子中介绍。</p>
+<h3 id="读取文本文件"><a href="#读取文本文件" class="headerlink" title="读取文本文件"></a>读取文本文件</h3><p>接下来介绍文本文件输入，它是基于控制台输入的。控制台输入涉及多个方面，下面首先来进行总结：  </p>
+<ul>
+<li>必须包含头文件iostream。</li>
+<li>头文件iostream定义了一个用于处理输入的istream类。</li>
+<li>头文件iostream声明了一个名为cin的istream变量(对象)。</li>
+<li>必须指明名称空间std；例如，为引用元素cin，必须使用编译指令using或前缀std::。</li>
+<li>可以结合使用cin和运算符&gt;&gt;来读取各种类型的数据。</li>
+<li>可以使用cin和get()方法来读取一个字符，使用cin和getline()来读取一行字符。</li>
+<li>可以结合使用cin和eof()、fail()方法来判断输入是否成功。</li>
+<li>对象cin本身被用作测试条件时，如果最后一个读取操作成功，它将被转换为布尔值true，否则被转换为false。</li>
+</ul>
+<p>文件输出与此极其相似：</p>
+<ul>
+<li>必须包含头文件fstream。</li>
+<li>头文件定义了一个用于处理输入的ifstream类。</li>
+<li>需要声明一个或多个ifstream变量(对象)，并以自己喜欢的方式对其进行命名，条件是遵守常用的命名规则。</li>
+<li>必须指明名称空间std；例如，为引用元素ifstream必须使用编译指令using或前缀std::。</li>
+<li>需要将ifstream对象与文件关联起来。为此，方法之一时使用open()方法。</li>
+<li>使用完文件后，应使用close()方法将其关闭。</li>
+<li>可结合使用ifstream对象和运算符&gt;&gt;来读取各种类型的数据。</li>
+<li>可以使用ifstream对象和get()方法来读取一个字符，使用ifstream对象和getline()来读取一行字符。</li>
+<li>可以结合使用ifstream和eof()、fail()等方法来判断输入是否成功。</li>
+<li>ifstream对象本身被用作测试条件时，如果最后一个读取操作成功，它将被转换为布尔值true，否则被转换为false。</li>
+</ul>
+<p>注意，虽然头文件iostream提供了一个预先定义好的名为cin的istream对象，但必须声明自己的ifstream对象，为其命名，并将其同文件关联起来。下面演示了如何声明这种对象：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifstream inFile;	<span class="comment">// inFile an ifstream object</span></span><br><span class="line">ifstream fin;		<span class="comment">// fin an ifstream object</span></span><br></pre></td></tr></table></figure></p>
+<p>下面演示了如何将这种对象与特定的文件关联起来：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inFile.open(<span class="string">"bowling.txt"</span>);		<span class="comment">// inFile used to read bowling.txt file</span></span><br><span class="line"><span class="keyword">char</span> filename[<span class="number">50</span>];</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; filename;			<span class="comment">// user specifies a name</span></span><br><span class="line">fin.open(filename);			<span class="comment">// fin used to read specified file</span></span><br></pre></td></tr></table></figure></p>
+<p>注意，方法open()接受一个C-风格字符串作为参数，这可以是一个字面字符串，也可以是存储在数组中的字符串。<br>下面演示了如何使用这种对象：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> wt;</span><br><span class="line">inFile &gt;&gt; wt;			<span class="comment">// read a number from bowling.txt</span></span><br><span class="line"><span class="keyword">char</span> line[<span class="number">81</span>];</span><br><span class="line">fin.getline(line, <span class="number">81</span>);		<span class="comment">// read a line of text</span></span><br></pre></td></tr></table></figure></p>
+<p>重要的是，声明一个ifstream对象并将其同文件关联起来后，便可以像使用cin那样使用它。所有用于cin的操作和方法都可用于ifstream对象(如前述示例中的inFile和fin)。<br>如果试图打开一个不存在的文件用于输入，情况何如？这种错误将导致后面使用ifstream对象进行输入时失败。检查文件是否被成功打开的首先方法是使用方法is_open()，为此，可以使用类似于下面的代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">inFile.open(<span class="string">"bowling.txt"</span>);</span><br><span class="line"><span class="keyword">if</span> (!inFile.is_open())</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果文件被成功地打开，方法is_open()将返回true；因此如果文件没有被打开，表达式!inFile.is_open()的值将为true。函数exit()的原型是在头文件cstdlib中定义的，在该头文件中，还定义了一个用于同操作系统通信的参数值EXIT_FAILURE。函数exit()终止程序。下图是cstdlib对EXIT_FAILURE的定义。<br><img src="C++-Primer-Plus-学习笔记五/cstdlib中对于EXIT_FAILURE的定义.png" alt="定义"><br>相对的，cstdlib中也存在参数值EXIT_SUCCESS，它的定义是：<br><img src="C++-Primer-Plus-学习笔记五/cstdlib中对于EXIT_SUCCESS的定义.png" alt="定义"><br>方法is_open()是C++中相对较新的内容。如果读者编译器不支持它，可以使用较老的方法good()代替。在后面的学习中会讨论，方法good()在检查可能存在的问题方面，没有is_open()那么广泛。<br>下列程序打开用户指定的文件，读取器中的数字，然后指出文件中包含多少个值以及它们的和与平均值。正确地设计输入循环至关重要。详细请看后面地“程序说明”。注意，通过使用if语句，该程序受益匪浅。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sumafile.cpp -- functions with an array argument</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;			// file I/O support</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;			// support for exit()</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">60</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">	<span class="keyword">char</span> filename[<span class="number">60</span>];</span><br><span class="line">	ifstream inFile;		<span class="comment">// object for handling file input</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter name of data file: "</span>;</span><br><span class="line">	<span class="built_in">cin</span>.getline(filename, SIZE);</span><br><span class="line">	inFile.open(filename);		<span class="comment">// associate inFile with a file</span></span><br><span class="line">	<span class="keyword">if</span> (!inFile.is_open())		<span class="comment">// failed to open file</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not open the file "</span> &lt;&lt; filename &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Program terminating.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">double</span> value;</span><br><span class="line">	<span class="keyword">double</span> sum = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;			<span class="comment">// number of items read</span></span><br><span class="line"></span><br><span class="line">	inFile &gt;&gt; value;		<span class="comment">// get first value</span></span><br><span class="line">	<span class="keyword">while</span> (inFile.good())	<span class="comment">// while input good and not at EOF</span></span><br><span class="line">	&#123;</span><br><span class="line">		++count;		<span class="comment">// one more item read</span></span><br><span class="line">		sum += value;		<span class="comment">// calculate running total</span></span><br><span class="line">		inFile &gt;&gt; value;	<span class="comment">// get next value</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (inFile.eof())</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"End of file reached.\n"</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (inFile.fail())</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Input terminated by data mismatch.\n"</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Input terminated by unknown reason.\n"</span>;</span><br><span class="line">	<span class="keyword">if</span> (count == <span class="number">0</span>)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"No data processed.\n"</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Items read: "</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Sum: "</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Average: "</span> &lt;&lt; sum / count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	inFile.close();			<span class="comment">// finished with the file</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>要运行上述程序，首先必须创建一个包含数字的文本文件。为此，可以使用文本编辑器(如用于编写源代码的文本编辑器)。假设该文件名为scores.txt，包含的内容如下：<br><img src="C++-Primer-Plus-学习笔记五/scores.txt.png" alt="文本文档"><br><strong>警告：Windows文本文件的每一行都以回车字符和换行符结尾；通常情况下，C++再读取文件时将这两个字符转换为换行符，并在写入文件时执行相反的转换。有些文本编辑器(如Metroweeks Code Warrior IDE编辑器)，不会自动在最后一行末尾加上换行符。因此，如果读者使用的是这种编辑器，请在输入最后的文本后按下回车键，然后在保存文件。</strong><br>下面是该程序的运行情况：<br><img src="C++-Primer-Plus-学习笔记五/sumafile.cpp输出.png" alt="输出">    </p>
+<h4 id="程序说明-1"><a href="#程序说明-1" class="headerlink" title="程序说明"></a>程序说明</h4><p>该程序没有使用硬编码文件名，而是将用户提供的文件名存储到字符数组filename中，然后将该数组用作open()的参数：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inFile.open(filename);</span><br></pre></td></tr></table></figure></p>
+<p>特别需要注意的是循环的正确设计。读取文件时，有几点需要检查。首先，程序读取文件时不应超过EOF。如果最后一次读取数据时遇到EOF，方法eof()将返回true。其次，程序可能遇到类型不匹配的情况。例如，上述程序期望文件中只包含数字。如果最后一次读取操作发生了类型不匹配的情况，方法fail()将返回true(如果遇到了EOF，该方法也将返回true)。最后，可能出现意外的问题还有很多，如文件受损或硬件故障。如果最后一次读取文件时发生了这样的问题，方法bad()将返回true。不要分别检查这些情况，一种更简单的方法是使用good()方法，该方法在没有发生任何错误时返回true：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (inFile.good())	<span class="comment">// while input good and not at EOF</span></span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后，如果愿意，可以用其他方法来确定循环终止的真正原因：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (inFile.eof())</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"End of file reached.\n"</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (inFile.fail())</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Input terminated by data mismatch.\n"</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Input terminated by unknown reason.\n"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这些代码紧跟在循环的后面，用于判断循环为何终止。由于eof()只能判断是否到达EOF，而fail()可用于检查EOF和类型不匹配，因此上述代码首先判断是否到达EOF。这样，如果执行到了else if测试，便可排除EOF，因此，如果fail()返回true，便可断定导致循环终止的原因是类型不匹配。<br>方法good()指出最后一次读取输入的操作是否成功，这十分重要。这意味着应该在执行读取输入操作后，立刻应用这种测试。为此，一种标准方法是，在循环之前(首次执行循环测试前)放置一条输入语句，并在循环的末尾(下次执行循环测试之前)放置另一条输入语句：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// standard file-reading loop design</span></span><br><span class="line">inFile &gt;&gt; value;		<span class="comment">// get first value</span></span><br><span class="line"><span class="keyword">while</span> (inFile.good())		<span class="comment">// while input good and not at EOF</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// loop body goes here</span></span><br><span class="line">	inFile &gt;&gt; value;	<span class="comment">// get next value</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>鉴于以下事实，可以将上述代码精简：表达式inFile &gt;&gt; value的结果为inFile，而在需要一个bool值的情况下，inFile的结果为inFile.good()，即true或false。<br>因此，可以将两条输入语句用一条用作循环测试的输入语句代替。也就是说，可以将上述循环结构替换为如下循环结构：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// abbreviated file-reading loop design</span></span><br><span class="line"><span class="comment">// omit pre-loop input</span></span><br><span class="line"><span class="keyword">while</span> (inFile &gt;&gt; value)		<span class="comment">// read and test for success</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//loop body goes here</span></span><br><span class="line">	<span class="comment">// omit end-of-loop input</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此种设计仍然遵循了在测试之前进行读取的规则，因为要计算表达式inFile &gt;&gt; value的值，程序首先试图将一个数据读取到value中。<br>至此，我们对文件I/O有了初步的认识。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/29/算法谜题二/" rel="next" title="算法谜题二">
+                <i class="fa fa-chevron-left"></i> 算法谜题二
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/05/C++-Primer-Plus-学习笔记六/" rel="prev" title="C++ Primer Plus 学习笔记六">
+                C++ Primer Plus 学习笔记六 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/blog-logo.jpg" alt="Chin">
+            
+              <p class="site-author-name" itemprop="name">Chin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单文件输入-输出"><span class="nav-number">1.</span> <span class="nav-text">简单文件输入/输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文本I-O和文本文件"><span class="nav-number">1.1.</span> <span class="nav-text">文本I/O和文本文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写入到文本文件"><span class="nav-number">1.2.</span> <span class="nav-text">写入到文本文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序说明"><span class="nav-number">1.2.1.</span> <span class="nav-text">程序说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文本文件"><span class="nav-number">1.3.</span> <span class="nav-text">读取文本文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序说明-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">程序说明</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">16.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: '6iwfHMNm5J8ODJiGrYf4CwXY-gzGzoHsz',
+        appKey: 'BOWfFR0KYqphOFth1z8jCwnF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
