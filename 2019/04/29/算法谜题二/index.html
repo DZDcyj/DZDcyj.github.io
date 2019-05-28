@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="CYJ的个人博客">
 <meta property="og:description" content="这是《算法谜题》中的第4到第6题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/算法谜题二/图2.1%20行列变换前的数字阵列.png">
-<meta property="og:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/算法谜题二/图2.1%20行列变换后的数字阵列.png">
-<meta property="og:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/算法谜题二/数字特征.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/图2.1%20行列变换前的数字阵列.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/图2.1%20行列变换后的数字阵列.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/数字特征.png">
 <meta property="og:updated_time" content="2019-05-09T02:52:50.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法谜题二">
 <meta name="twitter:description" content="这是《算法谜题》中的第4到第6题。">
-<meta name="twitter:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/算法谜题二/图2.1%20行列变换前的数字阵列.png">
+<meta name="twitter:image" content="http://dzdcyj.github.io/2019/04/29/算法谜题二/图2.1%20行列变换前的数字阵列.png">
 
 
 
@@ -436,12 +436,12 @@
 <h5 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h5><p>考虑到船一次只能载一个士兵，那么每一次就有一个士兵驾船前去对岸，再由1个小孩驾船回来。一次可以将2个小孩运载至对岸。那么过程就很清晰了：2个男孩过河-&gt;1个男孩回来-&gt;一个士兵过河-&gt;另1个男孩驾船回来，重复至所有士兵都渡河完成。那么这样一来，船一共靠岸100次。</p>
 <h5 id="伪代码实现"><a href="#伪代码实现" class="headerlink" title="伪代码实现"></a>伪代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">soldiersCrossRiver</span><span class="params">(<span class="keyword">int</span> numberOfSoldiers)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(!allSolidersAreCrossed())&#123;</span><br><span class="line">		boat.SendPeople(boy1, boy2, there);	<span class="comment">// boat.SendPeople(object1, object2, toPlace);</span></span><br><span class="line">		boat.SendPeople(boy1, here);		<span class="comment">// boat.SendPeople(object, toPlace)</span></span><br><span class="line">		boat.SendPeople(soldier, there);</span><br><span class="line">		boat.SendPeople(boy2, here);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="行列变换"><a href="#行列变换" class="headerlink" title="行列变换"></a>行列变换</h4><h5 id="题目概述-1"><a href="#题目概述-1" class="headerlink" title="题目概述"></a>题目概述</h5><!--使用<p align="left/right/center">进行居左/居右/居中操作 -->
-<p><img src="算法谜题二/图2.1 行列变换前的数字阵列.png" alt="变换前">  </p>
-<p></p><p align="center">图2.1 行列变换前的数字阵列<br><img src="算法谜题二/图2.1 行列变换后的数字阵列.png" alt="变换后"><br>图2.1 行列变换后的数字阵列  </p><br>怎样才能将图一中的数字阵列进行变换得到图二？要求只能进行行列变换。<p></p>
+<p><img src="/2019/04/29/算法谜题二/图2.1 行列变换前的数字阵列.png" alt="变换前">  </p>
+<p></p><p align="center">图2.1 行列变换前的数字阵列<br><img src="/2019/04/29/算法谜题二/图2.1 行列变换后的数字阵列.png" alt="变换后"><br>图2.1 行列变换后的数字阵列  </p><br>怎样才能将图一中的数字阵列进行变换得到图二？要求只能进行行列变换。<p></p>
 <h5 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h5><p>线性代数的知识告诉我们，对行列式进行行列变换不改变元素的相对位置。因此答案是不可以的。</p>
 <h5 id="伪代码实现-1"><a href="#伪代码实现-1" class="headerlink" title="伪代码实现"></a>伪代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不存在的</span></span><br></pre></td></tr></table></figure>
 <h4 id="数数的手指"><a href="#数数的手指" class="headerlink" title="数数的手指"></a>数数的手指</h4><h5 id="题目概述-2"><a href="#题目概述-2" class="headerlink" title="题目概述"></a>题目概述</h5><p>一个小女孩正在用左手手指数数，从1数到1000。她从拇指算作1开始数起，然后，食指为2，中指为3，无名指为4，小指为5。接下来调转方向，无名指算作6，中指为7，食指为8，大拇指为9，接下来，食指算作10，如此反复。问如果她继续按这种方式数下去，最后结束时是停在哪根手指上？</p>
-<h5 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h5><p>我们不妨先看下前几个数字，找找规律：<br><img src="算法谜题二/数字特征.png" alt="数字特征">   </p>
+<h5 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h5><p>我们不妨先看下前几个数字，找找规律：<br><img src="/2019/04/29/算法谜题二/数字特征.png" alt="数字特征">   </p>
 <p></p><p align="center">前几位数字与手指的匹配规律  </p><br>具体的判断方法就不用我多说了8。当数数到1000时，对应的手指是食指。<p></p>
 <h5 id="伪代码实现-2"><a href="#伪代码实现-2" class="headerlink" title="伪代码实现"></a>伪代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Finger <span class="title">getTheFinger</span><span class="params">(<span class="keyword">int</span> countNumber)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> preCaculateNum = countNumber % <span class="number">8</span>;</span><br><span class="line">	Finger result;</span><br><span class="line">	<span class="keyword">switch</span> (preCaculateNum)&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span>: result.setFinger(thumb); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">2</span>: <span class="keyword">case</span> <span class="number">0</span>: result.setFinger(foreFinger); <span class="keyword">break</span>; </span><br><span class="line">		<span class="keyword">case</span> <span class="number">3</span>: <span class="keyword">case</span> <span class="number">7</span>: result.setFinger(middleFinger); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">4</span>: <span class="keyword">case</span> <span class="number">6</span>: result.setFinger(ringFinger); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">5</span>: result.setFinger(littleFinger); <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>: result.setFinger(<span class="keyword">null</span>); <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
