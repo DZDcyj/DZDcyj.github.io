@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://dzdcyj.github.io/2019/06/04/Lua应用/为情所困效果1.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/06/04/Lua应用/士兵女.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/06/04/Lua应用/为情所困效果2.png">
-<meta property="og:updated_time" content="2019-06-04T13:38:51.100Z">
+<meta property="og:updated_time" content="2019-06-04T14:00:53.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lua应用">
 <meta name="twitter:description" content="关于Lua脚本语言在太阳神三国杀中的应用">
@@ -448,13 +448,13 @@
 <p><em>耀武: 锁定技，当一名角色使用【杀】对你伤害时，若之为：红色，来源选择是否回复1点体力，若其选择否，其摸一张牌；不为红色，你摸一张牌。 </em><br>因为是引用的别人的技能(华雄)，所以使用带引号的技能名称，但是终究不过瘾，我们能不能自己写技能呢，答案当然是可以的。</p>
 <h3 id="创建自己的技能"><a href="#创建自己的技能" class="headerlink" title="创建自己的技能"></a>创建自己的技能</h3><h4 id="技能类型"><a href="#技能类型" class="headerlink" title="技能类型"></a>技能类型</h4><p>神杀中的技能类型大约有以下几类：</p>
 <ul>
-<li>视为技(ViewAs)</li>
+<li>视为技(ViewAsSkill)</li>
 <li>触发技(TriggerSkill)</li>
 <li>禁止技(ProhibitSkill)</li>
 <li>距离修改技(DistanceSkill)</li>
 <li>手牌上限技(MaxCardsSkill)</li>
 <li>锁定视为技(FilterSkill)</li>
-<li>目标模式技(TargetMod)</li>
+<li>目标模式技(TargetModSkill)</li>
 </ul>
 <h5 id="视为技"><a href="#视为技" class="headerlink" title="视为技"></a>视为技</h5><p>简单来讲，视为技能就是将X张手牌视作X技能的技能卡使用，实现相关的效果。以界孙权的技能制衡为例：<br><em>制衡: 出牌阶段限一次，你可以弃置至少一张牌，然后若你以此法弃置了所有手牌，你摸X+1张牌，否则你摸X张牌。（X为你以此法弃置的牌数） </em><br>翻译过来就是：出牌阶段限一次，你可以弃置X张牌，视作你使用了X张“制衡技能卡”。而技能卡则是这样的：<br><em>制衡技能卡：你摸1张牌</em><br>如此一来，许多技能即是由这种技能卡所堆积而成的了。</p>
 <h5 id="触发技"><a href="#触发技" class="headerlink" title="触发技"></a>触发技</h5><p>触发技其实在三国杀里比较常见，通常是以阶段触发技为主，例如貂蝉的“闭月”：<br><em>闭月: 结束阶段开始时，你可以摸X张牌。（若你没有手牌，X为2，否则X为1）</em><br>这就是一个典型的触发技，当进入到你的结束阶段时，触发技能效果。你摸X张牌，而X的值由你的手牌数而定。</p>
@@ -790,7 +790,6 @@
   <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
 
   <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
 
 
   
