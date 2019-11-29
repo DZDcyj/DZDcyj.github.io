@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构,算法,">
+  <meta name="keywords" content="算法,数据结构,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
-<meta name="keywords" content="数据结构,算法">
+<meta name="keywords" content="算法,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Faster Subtree Isomorphism">
 <meta property="og:url" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/index.html">
@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure1.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure2.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure3.png">
-<meta property="og:updated_time" content="2019-11-29T11:01:46.777Z">
+<meta property="og:updated_time" content="2019-11-29T16:35:36.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Faster Subtree Isomorphism">
 <meta name="twitter:description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
@@ -488,7 +488,16 @@
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/Figure2.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">图2 一个子树同构问题的实例。在这里我们有 $H^u,H^{u_2}_u \not\subseteq_R G^r_v和H^{u_1}_u,H^{u_3}_u \subseteq_RG^r_v$，所以有 $S(v,u) = \lbrace u_1,u_3 \rbrace$ 图 $B(v,u)$ 是一个我们用于计算 $S(v,u)$ 所构建的二部图。有一条边 $u_iv_j$在这个图中当且仅当 $u \in S(v_j,u_i)$。$H^u \not\subseteq_RG^r_v$ 正如 $B(v,u)$不包含大小为3的匹配。$H^{u_1}\subseteq_RG^r_v$ 正如$B_{u_1}(v,u)=B_{v_1}(v,u)=B(v,u)-u_1$ 包含了一个大小为2的匹配</div><br></center><br>对于归纳步骤，考虑一个内部点 v（根据（3）我们可以假设 $d(v) \geq d(u)-1$）。我们首先需要计算对于所有的 $u \in V_H$ 所有 v 的儿子 v’ 的$S(v’,u)$。然后，为了判断是否对于 $w \in N[u]$ 有 $w \in S(v,u)$，我们构造一个二部图 $B_w(v,u)$，它由两部分构成：$X^{v,u}_w$ 和 $Y^{v,u}$，其中 $X^{v,u}_w$ 是 $H^w_u$ 中节点 u 的孩子集合，$Y^{v,u}是 v 的孩子集合$，${u’v’}$ 是图 $B_w(v,u)$的一条边当且仅当 $H^u_{u’} \subseteq_RG^r_{v’}$（也即是说当且仅当 $u \in S(v’,u’)$）。根据引理2.1，$w$ 在 $S(v,u)$ 中当且仅当 $B_w(v,u)$ 有一个大小为 $|{X^{v,u}_w}|$ 的匹配。因此，为了计算 $S(v,u)$ 我们需要在 $d(u)+1$ 的二部图中找到最大的匹配。不过，所有的这些图都彼此相似：每一个图 $B_w(v,u)(w \not= u)$ 都是通过从图 $B_u(v,u)$ 中删去节点 $w$ 来得到。在第3节（推论3.2）中我们将证明只在图 $B_u(v,u)$ 中寻找最大匹配是足够的，然后我们可以有效地计算出所有满足 $w\not=u$ 在 $B_w(v,u)$ 中最大匹配的大小。在接下来的部分，我们将使用 $B(v,u)$ 而非 $B_u(v,u)$。看图2来找寻一个关于 $S(v,u)$ 和 $B(v,u)$ 关系的例子。<br>子树同构算法将在图3以伪代码形式进行展示。<br><br>&gt; <strong>定理2.2</strong> 子树同构算法以 $O(k^{1.5}n)$ 的时间复杂度和 $O(kn)$ 的空间复杂度解决子树同构问题<br><br>&gt; <strong>证明</strong>：算法的正确性来源于引理2.1。让我们考虑下空间复杂度。设 $V=\lbrace x_1,\dots,x_n \rbrace$， $V_H=\lbrace y_1,\dots,y_n\rbrace$。由于每一个集合 $S(v,u)$ 都是 $N[u]$ 的子集，我们可以使用一个大小为 $|{N[u]}|$ 二元向量 $A(v,u)$ 来维护 $S(v,u)$。同时，我们也可以维护一个 $k\times k$ 的矩阵 $I$，其中 $I(u,w)$ 是在向量 $A(v,u)$ $w \in N[u]$ 的索引号。换言之，$w \in S(v,u)$ 当且仅当比特编号 $I(u,w)$ 在 $A(v,u)$ 中是一个集合。因此空间复杂度是 $O(k^2+\sum^k_{j=1}{d(y_i)n})=O(kn)$ 并且每一次对 $S(v,u)$ 的访问花费的是常数时间。<br><br><center><br>    <img style="border-radius: 0.3125em;
+    padding: 2px;">图2 一个子树同构问题的实例。在这里我们有 $H^u,H^{u_2}_u \not\subseteq_R G^r_v和H^{u_1}_u,H^{u_3}_u \subseteq_RG^r_v$，所以有 $S(v,u) = \lbrace u_1,u_3 \rbrace$ 图 $B(v,u)$ 是一个我们用于计算 $S(v,u)$ 所构建的二部图。有一条边 $u_iv_j$在这个图中当且仅当 $u \in S(v_j,u_i)$。$H^u \not\subseteq_RG^r_v$ 正如 $B(v,u)$不包含大小为3的匹配。$H^{u_1}\subseteq_RG^r_v$ 正如$B_{u_1}(v,u)=B_{v_1}(v,u)=B(v,u)-u_1$ 包含了一个大小为2的匹配</div><br></center>
+
+<p>对于归纳步骤，考虑一个内部点 v（根据（3）我们可以假设 $d(v) \geq d(u)-1$）。我们首先需要计算对于所有的 $u \in V_H$ 所有 v 的儿子 v’ 的$S(v’,u)$。然后，为了判断是否对于 $w \in N[u]$ 有 $w \in S(v,u)$，我们构造一个二部图 $B_w(v,u)$，它由两部分构成：$X^{v,u}_w$ 和 $Y^{v,u}$，其中 $X^{v,u}_w$ 是 $H^w_u$ 中节点 u 的孩子集合，$Y^{v,u}是 v 的孩子集合$，${u’v’}$ 是图 $B_w(v,u)$的一条边当且仅当 $H^u_{u’} \subseteq_RG^r_{v’}$（也即是说当且仅当 $u \in S(v’,u’)$）。根据引理2.1，$w$ 在 $S(v,u)$ 中当且仅当 $B_w(v,u)$ 有一个大小为 $|{X^{v,u}_w}|$ 的匹配。因此，为了计算 $S(v,u)$ 我们需要在 $d(u)+1$ 的二部图中找到最大的匹配。不过，所有的这些图都彼此相似：每一个图 $B_w(v,u)(w \not= u)$ 都是通过从图 $B_u(v,u)$ 中删去节点 $w$ 来得到。在第3节（推论3.2）中我们将证明只在图 $B_u(v,u)$ 中寻找最大匹配是足够的，然后我们可以有效地计算出所有满足 $w\not=u$ 在 $B_w(v,u)$ 中最大匹配的大小。在接下来的部分，我们将使用 $B(v,u)$ 而非 $B_u(v,u)$。看图2来找寻一个关于 $S(v,u)$ 和 $B(v,u)$ 关系的例子。<br>子树同构算法将在图3以伪代码形式进行展示。</p>
+<blockquote>
+<p> <strong>定理2.2</strong> 子树同构算法以 $O(k^{1.5}n)$ 的时间复杂度和 $O(kn)$ 的空间复杂度解决子树同构问题</p>
+</blockquote>
+<blockquote>
+<p> <strong>证明</strong>：算法的正确性来源于引理2.1。让我们考虑下空间复杂度。设 $V=\lbrace x_1,\dots,x_n \rbrace$， $V_H=\lbrace y_1,\dots,y_n\rbrace$。由于每一个集合 $S(v,u)$ 都是 $N[u]$ 的子集，我们可以使用一个大小为 $|{N[u]}|$ 二元向量 $A(v,u)$ 来维护 $S(v,u)$。同时，我们也可以维护一个 $k\times k$ 的矩阵 $I$，其中 $I(u,w)$ 是在向量 $A(v,u)$ $w \in N[u]$ 的索引号。换言之，$w \in S(v,u)$ 当且仅当比特编号 $I(u,w)$ 在 $A(v,u)$ 中是一个集合。因此空间复杂度是 $O(k^2+\sum^k_{j=1}{d(y_i)n})=O(kn)$ 并且每一次对 $S(v,u)$ 的访问花费的是常数时间。</p>
+</blockquote>
+<center><br>    <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/Figure3.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
@@ -534,9 +543,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
             <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
         </div>
       
