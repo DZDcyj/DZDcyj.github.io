@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure1.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure2.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure3.png">
-<meta property="og:updated_time" content="2019-11-30T03:43:49.490Z">
+<meta property="og:updated_time" content="2019-11-30T08:34:48.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Faster Subtree Isomorphism">
 <meta name="twitter:description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8.4k 字
+                  9.7k 字
                 </span>
               
 
@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  33 分钟
+                  39 分钟
                 </span>
               
             </div>
@@ -439,7 +439,7 @@
 <blockquote>
 <p>Faster Subtree Isomorphism</p>
 </blockquote>
-<p>译成中文则是更快的子树同构，从概要里可以得出，这是在树 $H$ 和树 $G$ 两棵树中进行操作，并且在 $G$ 树中找到一棵与 $H$ 树同构的子树（或是没有）的算法。他们给出了一个时间复杂度为$O(\frac{k^{1.5}}{\log k}n)$的算法，其中 $k$ 和 $n$ 分别是 $H$ 和 $G$ 树的的顶点数。这提高了之前 Chung 和 Matula 的算法（时间复杂度为$O(k^{1.5}n)$）。当然，他们也给出了一个随机化的O(k^{1.376}n)时间复杂度的选择算法。<br>以下是英文原文</p>
+<p>译成中文则是更快的子树同构，从概要里可以得出，这是在树 $H$ 和树 $G$ 两棵树中进行操作，并且在 $G$ 树中找到一棵与 $H$ 树同构的子树（或是没有）的算法。他们给出了一个时间复杂度为$O(\frac{k^{1.5}}{\log k}n)$的算法，其中 $k$ 和 $n$ 分别是 $H$ 和 $G$ 树的的顶点数。这提高了之前 Chung 和 Matula 的算法（时间复杂度为$O(k^{1.5}n)$）。当然，他们也给出了一个随机化的O(k^{1.376}n)时间复杂度的决策算法。<br>以下是英文原文</p>
 <blockquote>
 <p>We study the subtree ismorphism problem: Given trees $H$ and $G$, find a subtree of $G$ which is isomorphic to $H$ or decide that there is no such subtree. We give an $O((k^{1.5}/{\log k})n)$-time alogorithm for this problem, where $k$ and $n$ are the number of vertices in H and G, respectively. This improves over the $O(k^{1.5}n)$ algorithms of Chung and Matula. We also give a randomized (Las Vegas) $O(k^{1.376}n)$-time algorithm for the decision problem.</p>
 </blockquote>
@@ -548,7 +548,7 @@
 <p><strong>证明</strong>：设 $X’$ 是所有的 $X$ 中度小于 $s$ 的节点集合。设 $B’$ 是由 $X’$ 及其邻居从 $B$ 中导出的子图。构建 $X’$ 和 $B’$ 花费 $O(|X|+|Y|+|E|)=O(st)$ 的时间。我们说给定 $B’$ 的最大匹配 $M’$，我们可以构建一个 $B$ 的最大匹配 $M$：首先将 $M’$ 中的所有边添加至 $M$。对于 $X-X’$ 中的每一个节点，找到 $Y$ 中的一个不匹配的邻居 $y$ 然后将 $xy$ 添加到 $M$（这样一个节点 $y$ 一定存在，因为这样的 $x$ 拥有至少 $s$ 个邻居并且至多 $s-1$ 个邻居是匹配的）。找到 $x$ 的一个不匹配邻居花费 $O(s)$ 的时间，因此构建 $M$ 花费 $O(s^2)$ 的时间。</p>
 </blockquote>
 </blockquote>
-<h2 id="一个-O-frac-k-1-5-log-k-n-的算法"><a href="#一个-O-frac-k-1-5-log-k-n-的算法" class="headerlink" title="一个 $O(\frac{k^{1.5}}{\log k}n)$ 的算法"></a>一个 $O(\frac{k^{1.5}}{\log k}n)$ 的算法</h2><p>我们现在来对章节2中的算法进行 $\log k$ 因子的改进。我们使用之前的算法，但是如果我们通过利用二部图的团划分思想及其在最大匹配中的应用，将会在解决最大匹配问题时更加高效。Feder 和 Motwani 的算法最初是针对具有相同大小部分的二部图提出的，可以推广到一般的二部图。这使得我们可以给出时间复杂度为 $O((k^{1.5}/\log k)n)$ 的子树同构算法。我们不去描述对 Feder 和 Motwani 算法的修改，我们这里给出一个更简单的方法来得到一个 $O((k^{1.5}/\log k)n)$ 时间的子树同构算法。相比之下，[16]（参考文献，这里不列出）利用了图的稠密性，而我们利用子树同构算法中必须解决的匹配问题的特殊结构，实现了时间复杂度的降低。<br>修改后的算法，叫做<strong>改良子树同构(Improved-Subtree-Isomorphism)</strong>，和字数同构算法一样，但不同在于我们在处理第10步时采用了不同的方法。设 $v$ 是 $G^r$ 中的一些节点，它们的孩子是 $v_1,\dots,v_t$，设 $u$ 是 $H$ 中的一个节点，它的孩子是 $u_1,\dots,u_s$。我们现在考虑找到一个 $B=B(v,u)$ 中的最大匹配。回忆起来 $B=(X,Y,E)$ 其中 $X=\lbrace u_1,\dots,u_s\rbrace$， $Y=\lbrace v_1,\dots,v_t\rbrace$。我们假设 $s\leq t+1$ （否则 $S(v,u)=\phi$）<br>我们首先应用引理3.3来构建一个 $B$ 的子图 $B’=(X’,Y’,E’)$，令其最大度为 $s$。然后，像在[16]中那样，我们将 $B’$ 的边划分到二部图 $C_1,\dots,C_p$ 中。我们按以下方法进行划分：首先，我们以字典序对 $X’$ 中的节点进行排序，其中节点 $u$ 的键值为 $N[u]$ 。然后，我们将 $X’$ 分成相同的键 $X^1,\dots,X^p$，（也即是说，所有的 $X^i$ 中的节点都在 $Y’$ 中由相同的邻居）。现在，对于所有的 $1\leq i\leq p$，我们设 $C_i$ 是去掉了 $X^i$ 节点的子图，并且它所有的邻居都在 $Y’$ 中。我们现在按照[16]中的方法构建一个网络 $B^\ast$，它的节点为 $V^\ast =X’\cup Y’ \cup \lbrace c_1,\dots,c_p,a,b\rbrace$。边为 $E^\ast =E_1\cup E_2$，其中有：<br>$$E_1=\lbrace au_i:u_i\in X’\rbrace \cup \lbrace v_ib:v_i \in Y’ \rbrace $$<br>$$E_2=\lbrace u_ic_j:j \leq p,u_i \in C_j\rbrace \cup \lbrace c_jv_i:j \leq p,v_i \in C_j \rbrace$$<br>所有的边的都有1的容量。源是$a$，汇聚到$b$。我们使用 Dinic 的算法在 $B^\ast$ 中找到一个最大流（积分），然后以此构建 $B’$ 中的最大匹配。（因为所有边的容量都是1，可以可以将流$f$分解为从$a$到$b$的边不相交路径，其中每条路径上的流为1。因为每一条路径都符合 $[a,u_i,c_k,v_j,b]$的格式，我们可以通过提出一条边 $u_iv_j$ 来对应那条路并定义 $B’$ 中的一个匹配。这种匹配的极大性来自于流的极大性。）<br>我们现在分析上述算法的时间复杂度。我们用 $D(u)$ 来表示在森林 $H^u_{u_1},\dots,H^u_{u_s}$ 中不同的树。</p>
+<h2 id="一个-O-frac-k-1-5-log-k-n-的算法"><a href="#一个-O-frac-k-1-5-log-k-n-的算法" class="headerlink" title="一个 $O(\frac{k^{1.5}}{\log k}n)$ 的算法"></a>一个 $O(\frac{k^{1.5}}{\log k}n)$ 的算法</h2><p>我们现在来对章节2中的算法进行 $\log k$ 因子的改进。我们使用之前的算法，但是如果我们通过利用二部图的团划分思想及其在最大匹配中的应用，将会在解决最大匹配问题时更加高效。Feder 和 Motwani 的算法最初是针对具有相同大小部分的二部图提出的，可以推广到一般的二部图。这使得我们可以给出时间复杂度为 $O((k^{1.5}/\log k)n)$ 的子树同构算法。我们不去描述对 Feder 和 Motwani 算法的修改，我们这里给出一个更简单的方法来得到一个 $O((k^{1.5}/\log k)n)$ 时间的子树同构算法。相比之下，[16]（参考文献，这里不列出）利用了图的稠密性，而我们利用子树同构算法中必须解决的匹配问题的特殊结构，实现了时间复杂度的降低。<br>修改后的算法，叫做<strong>改良子树同构(Improved-Subtree-Isomorphism)</strong>，和子树同构算法一样，但不同在于我们在处理第10步时采用了不同的方法。设 $v$ 是 $G^r$ 中的一些节点，它们的孩子是 $v_1,\dots,v_t$，设 $u$ 是 $H$ 中的一个节点，它的孩子是 $u_1,\dots,u_s$。我们现在考虑找到一个 $B=B(v,u)$ 中的最大匹配。回忆起来 $B=(X,Y,E)$ 其中 $X=\lbrace u_1,\dots,u_s\rbrace$， $Y=\lbrace v_1,\dots,v_t\rbrace$。我们假设 $s\leq t+1$ （否则 $S(v,u)=\phi$）<br>我们首先应用引理3.3来构建一个 $B$ 的子图 $B’=(X’,Y’,E’)$，令其最大度为 $s$。然后，像在[16]中那样，我们将 $B’$ 的边划分到二部图 $C_1,\dots,C_p$ 中。我们按以下方法进行划分：首先，我们以字典序对 $X’$ 中的节点进行排序，其中节点 $u$ 的键值为 $N[u]$ 。然后，我们将 $X’$ 分成相同的键 $X^1,\dots,X^p$，（也即是说，所有的 $X^i$ 中的节点都在 $Y’$ 中由相同的邻居）。现在，对于所有的 $1\leq i\leq p$，我们设 $C_i$ 是去掉了 $X^i$ 节点的子图，并且它所有的邻居都在 $Y’$ 中。我们现在按照[16]中的方法构建一个网络 $B^\ast$，它的节点为 $V^\ast =X’\cup Y’ \cup \lbrace c_1,\dots,c_p,a,b\rbrace$。边为 $E^\ast =E_1\cup E_2$，其中有：<br>$$E_1=\lbrace au_i:u_i\in X’\rbrace \cup \lbrace v_ib:v_i \in Y’ \rbrace $$<br>$$E_2=\lbrace u_ic_j:j \leq p,u_i \in C_j\rbrace \cup \lbrace c_jv_i:j \leq p,v_i \in C_j \rbrace$$<br>所有的边的都有1的容量。源是$a$，汇聚到$b$。我们使用 Dinic 的算法在 $B^\ast$ 中找到一个最大流（积分），然后以此构建 $B’$ 中的最大匹配。（因为所有边的容量都是1，可以可以将流$f$分解为从$a$到$b$的边不相交路径，其中每条路径上的流为1。因为每一条路径都符合 $[a,u_i,c_k,v_j,b]$的格式，我们可以通过提出一条边 $u_iv_j$ 来对应那条路并定义 $B’$ 中的一个匹配。这种匹配的极大性来自于流的极大性。）<br>我们现在分析上述算法的时间复杂度。我们用 $D(u)$ 来表示在森林 $H^u_{u_1},\dots,H^u_{u_s}$ 中不同的树。</p>
 <blockquote>
 <p><strong>引理4.1</strong>：改良子树同构算法在 $B(v,u)$ 中找到一个最大匹配的时间在 $O(st+ts^{0.5}D(u))$ 以内。</p>
 <blockquote>
@@ -566,7 +566,38 @@
 <p><strong>证明</strong>：为了展示下限，我们使用结论：对于足够大的 $n$ ，有$g(n) \geq 2^n$。 因此，不同的$l=\lfloor \log \frac{n}{\log n}\rfloor$节点有根树的数量$g(l)\geq 2^{\log \frac{n}{\log n}-1}=\frac{n}{2\log n}$。因此我们可以通过提出 $\lfloor \frac{n}{2\log n} \rfloor$ 个不同的拥有 $l$ 个节点的树俩构建森林，森林的总节点数是 $\lfloor \frac{n}{2\log n} \rfloor&lt;n$。因此 $f(n)=\Omega (\frac{n}{\log n})$。我们现在来讨论上限。<br>如果我们有一个有根树的森林，并且用 $r_i$ 来表示森林中拥有 $i$ 个节点的树的数量，那么不同的树的数量最多为 $\sum^n_{i=1}min(r_i,g(i))$。因此有：<br>$$f(n)\leq max\lbrace \displaystyle \sum^n_{i=1}{min(r_i,g(i)):r_1,\dots,r_n \in \mathbb{N},\displaystyle \sum^n_{i=1}{ir_i \leq n}} \rbrace$$<br>根据引理4.2，有：<br>$$f(n)\leq max\lbrace \displaystyle\sum^n_{i=1}{min(r_i,c^i):r_1,\dots,r_n\in \mathbb{N},\displaystyle\sum^n_{i=1}{ir_i}\leq n} \rbrace$$<br>对于一些整数常量 $c$。我们设 $x$ 是最小的整数，使得 $\sum^x_{i=1}{ic^i}\geq n$。设 $r_1,\dots,r_n$ 为在 $\sum^n_{1}{ir_i}\leq n$ 约束下使得 $\sum^n_{i=1}{min(r_i,c^i)}$ 最大化的一组值。我们可以假设 $r_i\leq c^i$ 对于所有 $i$ 成立，因为如果对于某些 $j$ 有 $r_j &gt; c^j$ 的话，我们可以设 $r_j=c^j$，然后 $\sum^n_{i=1}{min(r_i,c^i)}$ 的值并未改变。现在，考虑对于某些 $j&gt;x$ 的情况 $r_j&gt;0$。这表明存在一个 $k\leq x$ 使得 $r_k&lt;c^k$（否则 $\sum^n_{i=1}{ir_i}\geq \sum^x_{i=1}{ir_i+jr_j}=\sum^x_{i=1}{ic^i+jr_j}&gt;n$，矛盾）。如果我们将 $r_j$ 减一，$r_k$ 加一，$\sum^n_{i=1}{min(r_i,c^i)}$ 的值并未改变，而且限制条件 $\sum^n_{i=1}{ir_i}\leq n$ 仍然满足（因为$k&lt;j$）。我们可以重复这个过程直到 $r_j=0$ 对于所有的 $j&gt;x$ 都成立，因此有：<br>$$f(n)\leq\displaystyle\sum^n_{i=1}{min(r_i,c^i)}\leq\displaystyle\sum^x_{i=1}{c^i}=O(c^x)$$<br>这个引理根据以下结论得到：$x=\log_cn-\log_c\log_cn+O(1)$。</p>
 </blockquote>
 </blockquote>
-<p>我们现在继续分析</p>
+<p>我们现在继续分析改良子树同构算法。设 $\epsilon$ 是一个常数，且 $0&lt;\epsilon&lt;\frac{1}{3}$。如果一个节点的度至少有 $2k^{1-\epsilon}$ 则我们称 $H$ 的一个节点是<em>重的</em>，否则称之为<em>轻的</em>。显然，重节点至多有 $k^\epsilon$ 个。如果 $u$ 是一个重节点并且 $v$ 是其一个邻居，这样的 $H^u_v$ 不包含重节点，那么我们称每一个在 $H^u_v$ 中的节点叫 $u$ <em>私有节点(private vertex)</em>。我们用 $l_j$ 来表示重节点 $y_j$ 的私有节点数。</p>
+<blockquote>
+<p><strong>引理4.4</strong>：对每一个重节点 $y_j$，都有 $d(y_j)\leq k^\epsilon+l_j$ 和 $D(y_j)\leq k^\epsilon+f(l_j)$</p>
+<blockquote>
+<p><strong>证明</strong>：设 $u_1,\dots,u_p$ 为 $y_j$ 的邻居中的私有节点，设 $v_1,\dots,v_q$ 是 $y_j$ 剩下的节点。显然，$p$ 是 $y_j$ 的私有节点数 $l_j$ 的上界。此外，对于每一个节点 $v_i$ 我们可以选择一个 $H^{y_j}_{v_i}$ 中的重节点 $w_i$。因为我们选择的节点不同，我们可以得到 $q$ 是小于重节点数的。因此有 $D(y_j)\leq q+f(l_j)\leq k^\epsilon+f(l_j)$。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><strong>引理4.5</strong>：我们把 $\sum^k_{j=1}{d(y_j)^{0.5}D(y_j)}$ 分成两个和。将 $H$ 的轻节点相加我们得到：<br>$$\displaystyle\sum_{j:y_j\,is\,light}{d(y_j)^{0.5}D(y_j)}\leq \displaystyle\sum_{y_j\,is\,light}{d(y_j)^{1.5}}\leq (2k^{1-\epsilon})^{0.5}\displaystyle\sum_{j:y_j\,is\,light}{d(y_j)}\leq (2k^{1-\epsilon})^{0.5}2k=2^{1.5}k^{1.5-\epsilon/2}$$<br>最后一个不等式从 $\sum^k_{j=1}{d(y_j)}=2k-2$ 得到。<br>求和所有的重节点，应用引理4.4我们得到：<br>$$\displaystyle\sum_{j:y_j\,is\,heavy}{d(y_j)^{0.5}D(y_j)}\leq \displaystyle\sum_{j:y_j\,is\,heavy}{(k^{\epsilon/2}+l^{0.5}_j)(k^\epsilon+f(l_j))}$$<br>因为 $f(l_j)\leq l_j\leq k$，并且重节点数至多为 $k^\epsilon$，我们有：<br>$$\leq \displaystyle\sum_{j:y_j\,is\,heavy}{(k^{3\epsilon/2}+k^{0.5+\epsilon}+k^{1+\epsilon/2}+l^{0.5}_jf(l_j))}$$<br>$$3k^{1+3\epsilon/2}+\displaystyle\sum_{j:y_j\,is\,heavy}{l_j^{0.5}f(l_j)}$$<br>又根据引理4.3，有结论 $\sum_{j:y_j\,is\,heavy}{l_j}\leq k$（因为每一个节点都最多只可能是1个重节点的私有节点），并且函数 $h(x)=x^{1.5}/\log x$ 是凸函数，我们有：<br>$$\leq 3k^{1+3\epsilon/2}+\displaystyle\sum_{j:y_j\,is\,heavy}{c\frac{l_j^{1.5}}{\log l_j}}\leq 3k^{1+3\epsilon/2}+c\frac{k^{1.5}}{\log k}$$</p>
+</blockquote>
+<p>我们因此证明了一下定理：</p>
+<blockquote>
+<p><strong>定理4.6</strong>：改良子树同构算法在 $O((k^{1.5}/\log k)n)$ 时间内解决子树同构问题。</p>
+</blockquote>
+<h2 id="一个-O-k-1-376-n-算法"><a href="#一个-O-k-1-376-n-算法" class="headerlink" title="一个 $O(k^{1.376}n)$ 算法"></a>一个 $O(k^{1.376}n)$ 算法</h2><p>在本节中，我们给出了一种求解子树同构决策问题的随机算法。该算法在渐近性方面比上一节的确定性算法更有效。<br>相同的，这个<strong>随机化子树同构(Randomized-Subtree-Isomorphism)</strong>基于子树同构算法，但是在最大匹配问题的解决上有所不同。考虑 $G^r$ 中的一些节点 $v$，它们的孩子是 $v_1,\dots,v_t$，并且 $H$ 中一些节点 $u$ 的邻居是 $u_1,\dots,u_s$。我们使用 Cheriyan 的算法来找到 $B(v,u)$ 最大的匹配然后找到所有的 $B(v,u)$ 中的<em>关键节点(Critical vertices)</em>。<br>Cheriyan 的寻找关键节点算法如下：给定一个输入图 $G=(V,E)$，其中 $V={1,2,\dots,n}$，选择一个大的素数 $q$ 并构建一个 $n\times n$ 矩阵 $C$，构建方法如下：对于每一条 $E$ 中的边 $ij$，一致地从 $\lbrace1,2,\dots,q-1 \rbrace$ 选择一个随机数 $w_{ij}$ 。设 $c_{ij}=w_{ij},c_{ji}=-w_{ij}$。将 $C$ 中所有的其他元素设置为0。最后，求出 $C$ 的零空间在 $Z$ 上的基底$a_1,\dots,a_r$。接下来，高概率会有：对所有 $i\in V$，$G$ 中最大匹配的大小与 $(n-r)/2$ 相同，节点 $i$ 是关键的当且仅当所有的第 $i$ 个节点的基 $a_1,\dots,a_r$ 为0。<br>又因为图 $B(v,u)$ 是一个二部图，当应用 Cheriyan 的算法于 $B(v,u)$ 时，矩阵 $C$ 符合以下形式：<br>$$<br>C=<br>  \begin{bmatrix}<br>  0 &amp; {C’} \\<br>  {C’’} &amp; 0 \\<br>  \end{bmatrix}<br>$$<br>在这里，$C’$ 是一个 $t\times s$ 块，$C’’$ 是一个 $s\times t$。因此，我们可以通过求 $C’$ 和 $C’’$ 的零空间的基来求出 $C$ 的零空间的基。这可以在 $O(s^{\omega-1}t)$ 时间内完成，其中 $\omega$ 表示矩阵乘法的指数。因此，随机化的子树同构算法运行时间是 $O(\sum^n_{i=1}{\sum^k_{j=1}{d(y_j)^{\omega -1}d(x_i)}})=O(k^{\omega -1}n)$</p>
+<blockquote>
+<p><strong>定理5.1</strong>：随机化子树同构算法预计在 $O(k^{\omega -1}n)$ 时间内求解决策问题。</p>
+</blockquote>
+<p>又 $\omega &lt;2.376$，我们有</p>
+<blockquote>
+<p><strong>推论5.2</strong>：随机化子树同构算法在 $O(k^{1.376}n)$ 期望时间内求解决策问题</p>
+</blockquote>
+<h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><p><s>我们</s><code>作者</code>感谢匿名审稿人对手稿的仔细阅读和许多有益的评论。</p>
+<p>笔者感谢有道翻译提供的支持。（笑）</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>T.Akutsu. An RNC algorithm for finding a largest common subtree of two trees. <em>IEEE Trans. Information Systems</em>, E75-D:95-101, 1992.</li>
+<li>T.Akutsu and M.M.Halldórsson. On the approximation of largest common subtrees and largest common point sets. In <em>Proc. 5th Int. Symposium on Alogorithms and Computation</em>, LNCS 834, pages 405-413. Springer-Verlag, 1994.</li>
+<li>S.Anderson. Graphical representation of molecules and substructure-search queries in MACCS. <em>J. of Molecular Graphics</em>, 2:8-90, 1984.</li>
+<li>M. Behzad, G. Chartrand, and L. Lesniak-Foster. <em>Graphs &amp; Digraphs</em>. Wadsworth International Group, 1979.</li>
+</ol>
+<p>太多了，略，共计42篇参考文献。</p>
+<h1 id="笔者的代码实现"><a href="#笔者的代码实现" class="headerlink" title="笔者的代码实现"></a>笔者的代码实现</h1><p>（还没写出来）</p>
 
       
     </div>
@@ -746,7 +777,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个-O-k-1-5-的算法"><span class="nav-number">2.2.</span> <span class="nav-text">一个 $O(k^{1.5})$ 的算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配"><span class="nav-number">2.3.</span> <span class="nav-text">匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个-O-frac-k-1-5-log-k-n-的算法"><span class="nav-number">2.4.</span> <span class="nav-text">一个 $O(\frac{k^{1.5}}{\log k}n)$ 的算法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个-O-k-1-5-的算法"><span class="nav-number">2.2.</span> <span class="nav-text">一个 $O(k^{1.5})$ 的算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配"><span class="nav-number">2.3.</span> <span class="nav-text">匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个-O-frac-k-1-5-log-k-n-的算法"><span class="nav-number">2.4.</span> <span class="nav-text">一个 $O(\frac{k^{1.5}}{\log k}n)$ 的算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个-O-k-1-376-n-算法"><span class="nav-number">2.5.</span> <span class="nav-text">一个 $O(k^{1.376}n)$ 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感谢"><span class="nav-number">2.6.</span> <span class="nav-text">感谢</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#笔者的代码实现"><span class="nav-number">4.</span> <span class="nav-text">笔者的代码实现</span></a></li></ol></div>
             
 
           </div>
@@ -780,7 +811,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.6k</span>
+    <span title="Site words total count">33k</span>
   
 </div>
 
