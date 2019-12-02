@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure1.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure2.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure3.png">
-<meta property="og:updated_time" content="2019-11-30T08:34:48.265Z">
+<meta property="og:updated_time" content="2019-12-02T15:24:27.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Faster Subtree Isomorphism">
 <meta name="twitter:description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
@@ -439,7 +439,7 @@
 <blockquote>
 <p>Faster Subtree Isomorphism</p>
 </blockquote>
-<p>译成中文则是更快的子树同构，从概要里可以得出，这是在树 $H$ 和树 $G$ 两棵树中进行操作，并且在 $G$ 树中找到一棵与 $H$ 树同构的子树（或是没有）的算法。他们给出了一个时间复杂度为$O(\frac{k^{1.5}}{\log k}n)$的算法，其中 $k$ 和 $n$ 分别是 $H$ 和 $G$ 树的的顶点数。这提高了之前 Chung 和 Matula 的算法（时间复杂度为$O(k^{1.5}n)$）。当然，他们也给出了一个随机化的O(k^{1.376}n)时间复杂度的决策算法。<br>以下是英文原文</p>
+<p>译成中文则是更快的子树同构，从概要里可以得出，这是在树 $H$ 和树 $G$ 两棵树中进行操作，并且在 $G$ 树中找到一棵与 $H$ 树同构的子树（或是没有）的算法。他们给出了一个时间复杂度为$O(\frac{k^{1.5}}{\log k}n)$的算法，其中 $k$ 和 $n$ 分别是 $H$ 和 $G$ 树的的顶点数。这提高了之前 Chung 和 Matula 的算法（时间复杂度为$O(k^{1.5}n)$）。当然，他们也给出了一个随机化的$O(k^{1.376}n)$时间复杂度的决策算法。<br>以下是英文原文</p>
 <blockquote>
 <p>We study the subtree ismorphism problem: Given trees $H$ and $G$, find a subtree of $G$ which is isomorphic to $H$ or decide that there is no such subtree. We give an $O((k^{1.5}/{\log k})n)$-time alogorithm for this problem, where $k$ and $n$ are the number of vertices in H and G, respectively. This improves over the $O(k^{1.5}n)$ algorithms of Chung and Matula. We also give a randomized (Las Vegas) $O(k^{1.376}n)$-time algorithm for the decision problem.</p>
 </blockquote>
