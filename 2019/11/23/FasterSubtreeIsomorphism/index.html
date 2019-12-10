@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure3.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/OriginalTreeNodeStructure.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/CProgramTreeNodeStructure.png">
-<meta property="og:updated_time" content="2019-12-05T02:39:04.006Z">
+<meta property="og:updated_time" content="2019-12-10T15:54:56.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Faster Subtree Isomorphism">
 <meta name="twitter:description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
@@ -582,7 +582,7 @@
 <blockquote>
 <p><strong>定理4.6</strong>：改良子树同构算法在 $O((k^{1.5}/\log k)n)$ 时间内解决子树同构问题。</p>
 </blockquote>
-<h2 id="一个-O-k-1-376-n-的算法"><a href="#一个-O-k-1-376-n-的算法" class="headerlink" title="一个 $O(k^{1.376}n)$ 的算法"></a>一个 $O(k^{1.376}n)$ 的算法</h2><p>在本节中，我们给出了一种求解子树同构决策问题的随机算法。该算法在渐近性方面比上一节的确定性算法更有效。<br>相同的，这个<strong>随机化子树同构(Randomized-Subtree-Isomorphism)</strong>基于子树同构算法，但是在最大匹配问题的解决上有所不同。考虑 $G^r$ 中的一些节点 $v$，它们的孩子是 $v_1,\dots,v_t$，并且 $H$ 中一些节点 $u$ 的邻居是 $u_1,\dots,u_s$。我们使用 Cheriyan 的算法来找到 $B(v,u)$ 最大的匹配然后找到所有的 $B(v,u)$ 中的<em>关键节点(Critical vertices)</em>。<br>Cheriyan 的寻找关键节点算法如下：给定一个输入图 $G=(V,E)$，其中 $V=\lbrace 1,2,\dots,n\rbrace$，选择一个大的素数 $q$ 并构建一个 $n\times n$ 矩阵 $C$，构建方法如下：对于每一条 $E$ 中的边 $ij$，一致地从 $\lbrace1,2,\dots,q-1 \rbrace$ 选择一个随机数 $w_{ij}$ 。设 $c_{ij}=w_{ij},c_{ji}=-w_{ij}$。将 $C$ 中所有的其他元素设置为0。最后，求出 $C$ 的零空间在 $Z$ 上的基底$a_1,\dots,a_r$。接下来，高概率会有：对所有 $i\in V$，$G$ 中最大匹配的大小与 $(n-r)/2$ 相同，节点 $i$ 是关键的当且仅当所有的第 $i$ 个节点的基 $a_1,\dots,a_r$ 为0。<br>又因为图 $B(v,u)$ 是一个二部图，当应用 Cheriyan 的算法于 $B(v,u)$ 时，矩阵 $C$ 符合以下形式：<br>$$<br>C=<br>  \begin{bmatrix}<br>  0 &amp; {C’} \\<br>  {C’’} &amp; 0 \\<br>  \end{bmatrix}<br>$$<br>在这里，$C’$ 是一个 $t\times s$ 块，$C’’$ 是一个 $s\times t$。因此，我们可以通过求 $C’$ 和 $C’’$ 的零空间的基来求出 $C$ 的零空间的基。这可以在 $O(s^{\omega-1}t)$ 时间内完成，其中 $\omega$ 表示矩阵乘法的指数。因此，随机化的子树同构算法运行时间是 $O(\sum^n_{i=1}{\sum^k_{j=1}{d(y_j)^{\omega -1}d(x_i)}})=O(k^{\omega -1}n)$</p>
+<h2 id="一个-O-k-1-376-n-的算法"><a href="#一个-O-k-1-376-n-的算法" class="headerlink" title="一个 $O(k^{1.376}n)$ 的算法"></a>一个 $O(k^{1.376}n)$ 的算法</h2><p>在本节中，我们给出了一种求解子树同构决策问题的随机算法。该算法在渐近性方面比上一节的确定性算法更有效。<br>相同的，这个<strong>随机化子树同构(Randomized-Subtree-Isomorphism)</strong>基于子树同构算法，但是在最大匹配问题的解决上有所不同。考虑 $G^r$ 中的一些节点 $v$，它们的孩子是 $v_1,\dots,v_t$，并且 $H$ 中一些节点 $u$ 的邻居是 $u_1,\dots,u_s$。我们使用 Cheriyan 的算法来找到 $B(v,u)$ 最大的匹配然后找到所有的 $B(v,u)$ 中的<em>关键节点(Critical vertices)</em>。<br>Cheriyan 的寻找关键节点算法如下：给定一个输入图 $G=(V,E)$，其中 $V=\lbrace 1,2,\dots,n\rbrace$，选择一个大的素数 $q$ 并构建一个 $n\times n$ 矩阵 $C$，构建方法如下：对于每一条 $E$ 中的边 $ij$，一致地从 $\lbrace1,2,\dots,q-1 \rbrace$ 选择一个随机数 $w_{ij}$ 。设 $c_{ij}=w_{ij},c_{ji}=-w_{ij}$。将 $C$ 中所有的其他元素设置为0。最后，求出 $C$ 的零空间在 $Z$ 上的基底$a_1,\dots,a_r$。接下来，高概率会有：对所有 $i\in V$，$G$ 中最大匹配的大小与 $(n-r)/2$ 相同，节点 $i$ 是关键的当且仅当所有的第 $i$ 个节点的基 $a_1,\dots,a_r$ 为0。<br>又因为图 $B(v,u)$ 是一个二部图，当应用 Cheriyan 的算法于 $B(v,u)$ 时，矩阵 $C$ 符合以下形式：<br>$$<br>C=<br>  \begin{bmatrix}<br>  0 &amp; {C’} \\<br>  {C’’} &amp; 0 \\<br>  \end{bmatrix}<br>$$<br>在这里，$C’$ 是一个 $t\times s$ 块，$C’’$ 是一个 $s\times t$块。因此，我们可以通过求 $C’$ 和 $C’’$ 的零空间的基来求出 $C$ 的零空间的基。这可以在 $O(s^{\omega-1}t)$ 时间内完成，其中 $\omega$ 表示矩阵乘法的指数。因此，随机化的子树同构算法运行时间是 $O(\sum^n_{i=1}{\sum^k_{j=1}{d(y_j)^{\omega -1}d(x_i)}})=O(k^{\omega -1}n)$</p>
 <blockquote>
 <p><strong>定理5.1</strong>：随机化子树同构算法预计在 $O(k^{\omega -1}n)$ 时间内求解决策问题。</p>
 </blockquote>
