@@ -88,7 +88,7 @@
 <meta property="og:description" content="汇编基础内容，数据的表示与寻址方式">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://dzdcyj.github.io/2020/01/14/CSAPP2/csapp3_35.jpg">
-<meta property="og:updated_time" content="2020-01-14T16:21:04.433Z">
+<meta property="og:updated_time" content="2020-01-14T16:26:44.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解《深入理解计算机系统》（二）">
 <meta name="twitter:description" content="汇编基础内容，数据的表示与寻址方式">
@@ -429,7 +429,7 @@
 <h1 id="访问信息"><a href="#访问信息" class="headerlink" title="访问信息"></a>访问信息</h1><p>一个 x86-64 的中央处理单元(CPU)包含一组 16 个存储 64 位值的<strong>通用目的寄存器</strong>。它们用来存储整数数据和指针。下图显示了这些寄存器：<br><img src="/2020/01/14/CSAPP2/csapp3_35.jpg" alt="寄存器"></p>
 <h2 id="操作数指示符"><a href="#操作数指示符" class="headerlink" title="操作数指示符"></a>操作数指示符</h2><p>大多数指令有一个或多个操作数(operand)，指示出执行一个操作中要使用的源数据值，以及放置结果的目的位置。x86-64 支持多种操作数格式，如 表-2 所示。源数据值可以以常数形式给出，或是从寄存器或内存中读出。结果可以存放在集群其或内存中。因此各种不同的操作数可能性分为三种：</p>
 <ol>
-<li>立即数(immediate)：用来表示常数值。在 ATT 格式的汇编代码中，立即数的书写方式是‘$’后跟一个用标准 C 表示法表示的整数。例如：$-577 或 $0x1F。不同的指令允许的立即数范围不同，汇编器会自动选择最紧凑的方式进行数值编码。</li>
+<li>立即数(immediate)：用来表示常数值。在 ATT 格式的汇编代码中，立即数的书写方式是‘\$’后跟一个用标准 C 表示法表示的整数。例如\$-577 或 \$0x1F。不同的指令允许的立即数范围不同，汇编器会自动选择最紧凑的方式进行数值编码。</li>
 <li>寄存器(register)：它表示某个寄存器的内容，16 个寄存器的低位 1 字节、2 字节、4 字节或 8 字节中的一个作为操作数，这些字节数分别对应 8 位、16 位、32 位或 64 位。在 表-2 中，我们用符号 $r_a$ 来表示任意寄存器 $a$，用引用 $R[r_a]$ 来表示它的值，这是将寄存器集合看作一个数组 $R$，用寄存器标识符作为索引。</li>
 <li><strong>内存</strong>引用：它根据计算出来的地址(常称作<strong>有效地址</strong>)访问某个内存位置。因为将内存看成一个很大的字节数组，我们用符号 $M_b[Addr]$ 表示对存储在内存中从 $Addr$ 开始的 $b$ 个字节值的引用。为了简便，我们通常省去下标 $b$，</li>
 </ol>
