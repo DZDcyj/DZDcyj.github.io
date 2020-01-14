@@ -88,7 +88,7 @@
 <meta property="og:description" content="汇编基础内容，数据的表示与寻址方式">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://dzdcyj.github.io/2020/01/14/CSAPP2/csapp3_35.jpg">
-<meta property="og:updated_time" content="2020-01-14T16:26:44.801Z">
+<meta property="og:updated_time" content="2020-01-14T16:27:55.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解《深入理解计算机系统》（二）">
 <meta name="twitter:description" content="汇编基础内容，数据的表示与寻址方式">
@@ -438,7 +438,7 @@
 <li>立即数偏移 $I_{mm}$</li>
 <li>基址寄存器 $r_b$</li>
 <li>变址寄存器 $r_i$</li>
-<li>比例因子 $s$，$s\in\lbrace 1,2,4,8 \rbrace$4</li>
+<li>比例因子 $s$，$s\in\lbrace 1,2,4,8 \rbrace$</li>
 </ul>
 <p>基址和变址寄存器必须是 64 位的寄存器。有效地址被计算为 $I_{mm}+R[r_b]+R[r_i]·s$。引用数组元素时，会用到这种通用形式。其他形式都是这种形式的特殊情况，只是省略了某些部分。正如我们所见，引用数组和结构元素时，比较复杂的寻址模式是很有用的。</p>
 <p><style> table th:first-of-type { width: 60px; } </style></p>
