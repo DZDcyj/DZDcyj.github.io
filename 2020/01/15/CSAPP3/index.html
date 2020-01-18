@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CYJ的个人博客">
 <meta property="og:description" content="汇编基础，数据传送指令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-15T14:19:49.049Z">
+<meta property="og:updated_time" content="2020-01-18T16:47:19.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解《深入理解计算机系统》（三）">
 <meta name="twitter:description" content="汇编基础，数据传送指令">
@@ -418,7 +418,7 @@
         <p>汇编基础，数据传送指令<br>
 <a id="more"></a>
 <br>书接上文，既然已经了解了操作数指示符，就应当了解基础的数据传送指令了。</p>
-<h2 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h2><p>最频繁使用的指令是将数据从一个位置复制到另一个位置的指令。操作数表示的通用性使得一条简单的数据传送指令能够完成在许多机器中要好几条不同指令才能完成的功能。我们会使用不同的数据传送指令，它们或者源和目的类型不同，或者执行的转换不同，或者具有的一些副作用不同。在我们的讲述中，把许多不同的指令划分为<strong>指令类</strong>，每一类中的指令执行的操作相同，只是操作数大小存在差异。<br>下表列出了最简单形式的数据传送指令——MOV 类。这些指令将数据复制到目的位置，不做任何变化。MOV 类由四条指令组成：movb、movw、movl、movq。这些指令都执行同样的操作，主要区别在于它们操作的数据大小不同：分别为1、2、4 和 8 字节。</p>
+<h1 id="访问信息"><a href="#访问信息" class="headerlink" title="访问信息"></a>访问信息</h1><h2 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h2><p>最频繁使用的指令是将数据从一个位置复制到另一个位置的指令。操作数表示的通用性使得一条简单的数据传送指令能够完成在许多机器中要好几条不同指令才能完成的功能。我们会使用不同的数据传送指令，它们或者源和目的类型不同，或者执行的转换不同，或者具有的一些副作用不同。在我们的讲述中，把许多不同的指令划分为<strong>指令类</strong>，每一类中的指令执行的操作相同，只是操作数大小存在差异。<br>下表列出了最简单形式的数据传送指令——MOV 类。这些指令将数据复制到目的位置，不做任何变化。MOV 类由四条指令组成：movb、movw、movl、movq。这些指令都执行同样的操作，主要区别在于它们操作的数据大小不同：分别为1、2、4 和 8 字节。</p>
 <p><table><thead><tr><th>指令</th><th>效果</th><th>描述</th></tr></thead><tbody><tr><td>MOV S, D</td><td>D←S</td><td>传送</td></tr><tr><td>movb</td><td></td><td>传送字节</td></tr><tr><td>movw</td><td></td><td>传送字</td></tr><tr><td>movl</td><td></td><td>传送双字</td></tr><tr><td>movq</td><td></td><td>传送四字</td></tr><tr><td>movabsq</td><td></td><td>传送绝对的四字</td></tr></tbody></table></p>
 <p><center>表-1 简单的数据传送指令</center><br>源操作数指定的值是一个立即数，存储在寄存器中或者内存中。目的操作数指定一个位置，要么是一个寄存器或者，要么是一个内存地址。在 x86-64 中有一条限制，两个操作数不能都指向内存位置。将一个值从一个内存位置复制到另一个内存位置需要两条指令——借助寄存器。这些指令可以是上一篇中的 16 个寄存器有标号部分的任意一个，寄存器部分的大小必须与指令最后一个字符(‘b’‘w’‘l’或‘q’)指定的大小匹配。大多数情况下，MOV 指令值汇更新目的操作数<strong>指定</strong>的那些寄存器字节或内存位置。唯一得例外是 <strong>movl</strong> 指令以寄存器作为目的时，它会把该寄存器得高位 4 字节设置为 0 。造成这个例外的原因是 x86-64 采用的惯例，即任何为寄存器生成 32 位值得指令都会把该寄存器的高位部分置成 0 。<br>下面的 MOV 指令示例给出了源和目的类型的五种可能的组合。记住，第一个是源操作数，第二个是目的操作数：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">movl </span><span class="number">$0x4050</span>, %eax</span><br><span class="line"><span class="keyword">movw </span>%<span class="keyword">bp, </span>%<span class="built_in">sp</span></span><br><span class="line"><span class="keyword">movb </span>(%rdi, %rcx), %al</span><br><span class="line"><span class="keyword">movb </span>$-<span class="number">17</span>, (%rsp)</span><br><span class="line"><span class="keyword">movq </span>%rax, -<span class="number">12</span>(%rbp)</span><br></pre></td></tr></table></figure></p>
 <p>表-1 记录的最后一条指令是处理 64 位立即数数据的。常规的 movq 指令以只能表示为 32 位补码数字的立即数作为源操作数，然后把这个值符号扩展得到 64 位的值，放到目的位置。movabsq 指令能够以任意 64 位立即数值作为源操作数，并且只能以寄存器作为目的。<br>下量表记录了两类数据移动指令，在将较小的源值复制到较大的目的时使用。所有这些指令都把数据从源(在寄存器或内存中)复制到目的寄存器。MOVZ 类中的指令把目的中的剩余字节填充为 0，而 MOVS 类中的指令通过符号扩展来填充，吧源操作数的最高位进行复制。可以观察到，指令名字的最后两个字符都是大小指示符：第一个字符指定源的大小，第二个字符指定目的的大小。</p>
@@ -474,6 +474,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/19/CSAPP4/" rel="prev" title="深入理解《深入理解计算机系统》（四）">
+                深入理解《深入理解计算机系统》（四） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -557,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -612,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传送指令"><span class="nav-number">1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送如何改变目的寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">数据传送如何改变目的寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节传送指令比较"><span class="nav-number">1.2.</span> <span class="nav-text">字节传送指令比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传送示例"><span class="nav-number">2.</span> <span class="nav-text">数据传送示例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#访问信息"><span class="nav-number">1.</span> <span class="nav-text">访问信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传送指令"><span class="nav-number">1.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送如何改变目的寄存器"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据传送如何改变目的寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节传送指令比较"><span class="nav-number">1.1.2.</span> <span class="nav-text">字节传送指令比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传送示例"><span class="nav-number">1.2.</span> <span class="nav-text">数据传送示例</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -646,7 +650,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">38k</span>
+    <span title="Site words total count">39.2k</span>
   
 </div>
 
