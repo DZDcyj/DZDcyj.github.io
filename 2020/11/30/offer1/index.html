@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/array_compare.png">
 <meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/situation.jpg">
 <meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/search_example.jpg">
-<meta property="og:updated_time" content="2020-11-30T13:09:57.631Z">
+<meta property="og:updated_time" content="2020-11-30T13:18:19.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《剑指 Offer》笔记一">
 <meta name="twitter:description" content="《剑指 Offer》中数组的基础部分">
@@ -477,7 +477,11 @@
 <p>如此一来，每一步都会减小查找的范围，直到命中或者范围为空。<br>基于此，我们有如下代码：</p>
 <details><summary>示例代码</summary><br><br>在这里，我们使用一维数组代表矩阵，利用行列运算进行元素的定位。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> *matrix, <span class="keyword">int</span> rows, <span class="keyword">int</span> columns, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> found = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (matrix != <span class="literal">nullptr</span> &amp;&amp; rows &gt; <span class="number">0</span> &amp;&amp; columns &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> row = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> column = columns - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (row &lt; rows &amp;&amp; column &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matrix[row * columns + column] == number) &#123;</span><br><span class="line">                found = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (matrix[row * columns + column] &gt; number) &#123;</span><br><span class="line">                --column;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ++row;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> found;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
 
-<h5 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h5><p>在本例中，我们选择了右上角进行处理，那么其他三个角的状况如何呢？留做习题答案略，读者自证不难。（答案还是会给的，在下面）</p>
+<h5 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h5><p>在本例中，我们选择了右上角进行处理，那么其他三个角的状况如何呢？</p>
+<blockquote>
+<p>西江月·证明<br>即得易见平凡，仿照上例显然。<br>留作习题答案略，读者自证不难。<br>反之亦然同理，推论自然成立，<br>略去过程QED，由上可知证毕。</p>
+</blockquote>
+<p>（答案还是会给的，在下面）</p>
 <details><summary>参考答案</summary><br>我们除了右上角之外还可以选择左下角，而左上角和右下角均不可。原因在于我们无法准确地区分应该朝着哪个方向前进（也即是剔除行/列无法判断）。<br></details>
       
     </div>
