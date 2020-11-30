@@ -89,7 +89,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/clion_hint.jpg">
 <meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/array_compare.png">
-<meta property="og:updated_time" content="2020-11-30T09:54:25.380Z">
+<meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/situation.jpg">
+<meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/search_example.jpg">
+<meta property="og:updated_time" content="2020-11-30T13:09:57.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《剑指 Offer》笔记一">
 <meta name="twitter:description" content="《剑指 Offer》中数组的基础部分">
@@ -381,7 +383,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k 字
+                  3.8k 字
                 </span>
               
 
@@ -397,7 +399,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  14 分钟
                 </span>
               
             </div>
@@ -454,7 +456,29 @@
 </blockquote>
 <h5 id="题外话：二维数组的表示方式"><a href="#题外话：二维数组的表示方式" class="headerlink" title="题外话：二维数组的表示方式"></a>题外话：二维数组的表示方式</h5><p>对于二维数组，我们可以考虑两种方案：（示例代码给的是一维的二维映射方案）<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> [row][col];</span><br><span class="line"><span class="keyword">int</span> [row * columns + col];</span><br></pre></td></tr></table></figure></p>
 <p>也即是考虑用一维数组表示二维数组的考虑。具体可以参照<a href="https://stackoverflow.com/questions/17259877/1d-or-2d-array-whats-faster" title="StackOverflow 上关于一维数组和二维数组效率的讨论" target="_blank" rel="noopener">这个帖子</a>。在此，我将参考结论给出：使用一维数组效率更高。下面这个图或许更为清晰：<br><img src="/2020/11/30/offer1/index/array_compare.png" alt="一维数组与二维数组的比较"></p>
+<h5 id="考虑问题"><a href="#考虑问题" class="headerlink" title="考虑问题"></a>考虑问题</h5><p>在分析问题时，大多数时间我们会画出二维数组的矩形，然后考虑选中的元素相对大小。分三种情况：  </p>
+<ol>
+<li>若选中的数字与查找数字相等，则结束查找</li>
+<li>若选中的数字较小，那么目标可能在当前位置的右下（如图(a)）</li>
+<li>若选中的数字较大，那么目标可能在当前位置的左上（如图(b)）</li>
+</ol>
+<p><img src="/2020/11/30/offer1/index/situation.jpg" alt="情况"></p>
+<p>在上面的分析中，由于目标位置可能在两个区域（橙色）、并且还可能重叠（红色），因此会相对复杂一些，我们不妨考虑一下原因：<br>我们是从中间开始选择的，因此会产生这种交叉部分；但是，如果我们从边角开始，情况会不会好一些呢？如果我们从其中一个角（例如）开始，再逐行逐列筛选，情况应该会简单很多。  </p>
+<details><summary>实例分析</summary><br>为省略篇幅，留下四张图供读者自行分析。<br>我们在以下数组中寻找数字 7：<br><img src="/2020/11/30/offer1/index/search_example.jpg" alt="示例"><br></details>
 
+<p>于是我们可以得出如下算法：</p>
+<ul>
+<li>首先选取数组的右上角</li>
+<li>判断该元素与目标的大小</li>
+<li>若该元素与目标相等，结束查找</li>
+<li>若该元素小于目标，则剔除该元素所在行</li>
+<li>若该元素大于目标，则提出该元素所在列</li>
+</ul>
+<p>如此一来，每一步都会减小查找的范围，直到命中或者范围为空。<br>基于此，我们有如下代码：</p>
+<details><summary>示例代码</summary><br><br>在这里，我们使用一维数组代表矩阵，利用行列运算进行元素的定位。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> *matrix, <span class="keyword">int</span> rows, <span class="keyword">int</span> columns, <span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> found = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (matrix != <span class="literal">nullptr</span> &amp;&amp; rows &gt; <span class="number">0</span> &amp;&amp; columns &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> row = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> column = columns - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (row &lt; rows &amp;&amp; column &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matrix[row * columns + column] == number) &#123;</span><br><span class="line">                found = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (matrix[row * columns + column] &gt; number) &#123;</span><br><span class="line">                --column;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ++row;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> found;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<h5 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h5><p>在本例中，我们选择了右上角进行处理，那么其他三个角的状况如何呢？留做习题答案略，读者自证不难。（答案还是会给的，在下面）</p>
+<details><summary>参考答案</summary><br>我们除了右上角之外还可以选择左下角，而左上角和右下角均不可。原因在于我们无法准确地区分应该朝着哪个方向前进（也即是剔除行/列无法判断）。<br></details>
       
     </div>
     
@@ -635,7 +659,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">1.2.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目一"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">题目一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目二"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">题目二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目三"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">题目三</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题外话：二维数组的表示方式"><span class="nav-number">1.2.2.3.1.</span> <span class="nav-text">题外话：二维数组的表示方式</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">1.2.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目一"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">题目一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目二"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">题目二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目三"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">题目三</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题外话：二维数组的表示方式"><span class="nav-number">1.2.2.3.1.</span> <span class="nav-text">题外话：二维数组的表示方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#考虑问题"><span class="nav-number">1.2.2.3.2.</span> <span class="nav-text">考虑问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#课后习题"><span class="nav-number">1.2.2.3.3.</span> <span class="nav-text">课后习题</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -669,7 +693,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48k</span>
+    <span title="Site words total count">48.7k</span>
   
 </div>
 
