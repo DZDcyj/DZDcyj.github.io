@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="CYJ的个人博客">
 <meta property="og:description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure1.png">
-<meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure2.png">
-<meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure3.png">
-<meta property="og:updated_time" content="2019-12-19T08:47:01.130Z">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/index/Figure1.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/index/Figure2.png">
+<meta property="og:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/index/Figure3.png">
+<meta property="og:updated_time" content="2020-11-30T08:31:01.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Faster Subtree Isomorphism">
 <meta name="twitter:description" content="这是数据结构课程设计的论文一的分析与理解 翻译，原文可以在这个链接下载。原作者是 Ron Shamir和 Dekel Tsur 。">
-<meta name="twitter:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/Figure1.png">
+<meta name="twitter:image" content="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/index/Figure1.png">
 
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/">
+    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/2019/11/23/FasterSubtreeIsomorphism/index.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chin">
@@ -453,7 +453,7 @@
 </blockquote>
 <p>所有的这些图的节点的儿子数都至多为2。当图 $G$ 满足以上条件时，任意给出的图 $G$ 都使得这个图同构问题是一个NPH问题。（事实上，即使是图 $G$ 每个非树叶节点都有2个儿子并且图 $H$ 为树，他们都只有至多一个节点的度超过3 ，它仍然是一个NPH问题。），甚至当图 $G$ 的路宽为2时亦是如此。不过，对于那些树宽至多为 $p$ 且 $p \geq 2$ 的图来说，这个问题就是多项式的了。</p>
 <center><br>    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/Figure1.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/index/Figure1.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
     padding: 2px;">图1 一个子树同构问题的实例。树 $G$ 拥有一棵与图 $H$ 同构的子树</div><br></center>
@@ -485,7 +485,7 @@
 <p>叶子节点：没有子节点的节点</p>
 </blockquote>
 <center><br>    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/Figure2.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/index/Figure2.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
     padding: 2px;">图2 一个子树同构问题的实例。在这里我们有 $H^u,H^{u_2}_u \not\subseteq_R G^r_v和H^{u_1}_u,H^{u_3}_u \subseteq_RG^r_v$，所以有 $S(v,u) = \lbrace u_1,u_3 \rbrace$ 图 $B(v,u)$ 是一个我们用于计算 $S(v,u)$ 所构建的二部图。有一条边 $u_iv_j$在这个图中当且仅当 $u \in S(v_j,u_i)$。$H^u \not\subseteq_RG^r_v$ 正如 $B(v,u)$不包含大小为3的匹配。$H^{u_1}\subseteq_RG^r_v$ 正如$B_{u_1}(v,u)=B_{v_1}(v,u)=B(v,u)-u_1$ 包含了一个大小为2的匹配</div><br></center>
@@ -498,7 +498,7 @@
 </blockquote>
 </blockquote>
 <center><br>    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/Figure3.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/2019/11/23/FasterSubtreeIsomorphism/index/Figure3.png"><br>    <br><br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
     padding: 2px;">图3 子树同构算法$(G,H)$</div><br></center>
@@ -631,7 +631,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/04/Lua应用/" rel="next" title="Lua应用">
+              <a href="/2019/06/04/Lua应用/index.html" rel="next" title="Lua应用">
                 <i class="fa fa-chevron-left"></i> Lua应用
               </a>
             
@@ -641,7 +641,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/09/CSAPP1/" rel="prev" title="深入理解《深入理解计算机系统》（一）">
+              <a href="/2020/01/09/CSAPP1/index.html" rel="prev" title="深入理解《深入理解计算机系统》（一）">
                 深入理解《深入理解计算机系统》（一） <i class="fa fa-chevron-right"></i>
               </a>
             

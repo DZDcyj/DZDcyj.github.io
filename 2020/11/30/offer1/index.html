@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="CYJ的个人博客">
 <meta property="og:description" content="《剑指 Offer》中数组的基础部分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/clion_hint.jpg">
-<meta property="og:updated_time" content="2020-11-30T07:45:49.273Z">
+<meta property="og:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/clion_hint.jpg">
+<meta property="og:updated_time" content="2020-11-30T08:27:38.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《剑指 Offer》笔记一">
 <meta name="twitter:description" content="《剑指 Offer》中数组的基础部分">
-<meta name="twitter:image" content="http://dzdcyj.github.io/2020/11/30/offer1/clion_hint.jpg">
+<meta name="twitter:image" content="http://dzdcyj.github.io/2020/11/30/offer1/index/clion_hint.jpg">
 
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/2020/11/30/offer1/">
+    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/2020/11/30/offer1/index.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chin">
@@ -424,7 +424,7 @@
 </blockquote>
 <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组可以说是最简单的数据结构，它占据着一块连续的内存空间，按照顺序存储数据。创建数组时，我们需要指定容量的大小，然后根据大小分配内存。因此数组的空间利用率相对较低（很多时候定义的大小比实际利用的更大）。<br>由于数组空间连续，因此可以根据下标在$O(1)$的时间内读/写任何元素。从这个方面来看，它的时间效率很高。因此可以基于此来实现较为简单的哈希表：将下标设置为键值（Key），而每个数字设置为哈希表的值（Value），如此一来便可以在$O(1)$时间范围内实现查找，从而快速高效地解决很多的问题。<br>为了解决数组空间利用率不高的问题，人们设计实现了多种的动态数组，例如<code>C++</code>的<code>STL</code>中的<code>vector</code>。为了避免浪费，我们先开辟一个较小的空间，然后往里加数据。当数据数目超过容量时，我们重新分配一块较大的空间（<code>STL</code>的<code>vector</code>分配时会扩大一倍），把之前的内容复制到新数组中，再将之前的数组释放，这样可以减少内存的浪费。但同时注意到扩容会带来额外的时间开销，因此需要尽量减小改变容量大小的次数。<br>在<code>C/C++</code>中，数组和指针既有关联也互有区别。当声明数组时，其名字亦为一个指针，指针指向数组的第一个元素。我们可以利用一个指针来访问数组，但需要注意的是，<code>C/C++</code>没有记录数组的大小，因此利用指针访问元素时，需要确保访问不会越界。下面考虑这个例子：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 32 位系统下运行</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">(<span class="keyword">int</span> data[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">sizeof</span>(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> data1[] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> size1 = <span class="keyword">sizeof</span>(data1);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> *data2 = data1;</span><br><span class="line">    <span class="keyword">int</span> size2 = <span class="keyword">sizeof</span>(data2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> size3 = getSize(data1);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d, %d, %d"</span>, size1, size2, size3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>那么执行这个程序的输出是多少呢？</p>
-<details><summary>查看答案与解析</summary><br>    答案是：20, 4, 4<br>    <code>data1</code>是一个数组，<code>sizeof(data1)</code>可以求出数组的大小。这个数组包含了 5 个整数，每个整数占用 4 个字节（<code>int</code>类型），因此一共占用 20 个字节。<code>data2</code>声明为指针，尽管它指向了<code>data1</code>的第一个元素。对任意指针在 32 位系统下求<code>sizeof</code>，得到的结果都是 4。最后是<code>data3</code>，在<code>C/C++</code>中，数组传参时会退化为同类型的指针。因此<code>data1</code>作为参数传递后，仍会退化为指针。<br>    下图为 Clion 给出的提示信息：<br>    <img src="/2020/11/30/offer1/clion_hint.jpg" alt="Clion 提示"><br></details>
+<details><summary>查看答案与解析</summary><br>    答案是：20, 4, 4<br>    <code>data1</code>是一个数组，<code>sizeof(data1)</code>可以求出数组的大小。这个数组包含了 5 个整数，每个整数占用 4 个字节（<code>int</code>类型），因此一共占用 20 个字节。<code>data2</code>声明为指针，尽管它指向了<code>data1</code>的第一个元素。对任意指针在 32 位系统下求<code>sizeof</code>，得到的结果都是 4。最后是<code>data3</code>，在<code>C/C++</code>中，数组传参时会退化为同类型的指针。因此<code>data1</code>作为参数传递后，仍会退化为指针。<br>    下图为 Clion 给出的提示信息：<br>    <img src="/2020/11/30/offer1/index/clion_hint.jpg" alt="Clion 提示"><br></details>
       
     </div>
     
@@ -458,7 +458,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/08/25/machao/" rel="next" title="马超就是神">
+              <a href="/2020/08/25/machao/index.html" rel="next" title="马超就是神">
                 <i class="fa fa-chevron-left"></i> 马超就是神
               </a>
             
