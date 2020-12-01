@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,基础,算法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《剑指 Offer》中字符串和链表的基础部分">
+<meta name="keywords" content="C++,基础,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《剑指 Offer》笔记二">
+<meta property="og:url" content="http://dzdcyj.github.io/posts/356350fb/index.html">
+<meta property="og:site_name" content="CYJ的个人博客">
+<meta property="og:description" content="《剑指 Offer》中字符串和链表的基础部分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-01T14:39:21.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《剑指 Offer》笔记二">
+<meta name="twitter:description" content="《剑指 Offer》中字符串和链表的基础部分">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dzdcyj.github.io/posts/356350fb/">
+
+
+
+
+
+  <title>《剑指 Offer》笔记二 | CYJ的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/DZDcyj"><img style=" position:absolute; top:0;left:0;border:0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYJ的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/posts/356350fb/index.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYJ的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《剑指 Offer》笔记二</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-01T20:27:00+08:00">
+                2020-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《剑指 Offer》中字符串和链表的基础部分<br><a id="more"></a></p>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>数据结构一直是面试的重点，大多数会围绕着数组、字符串、链表、树、栈、队列等几种常见的数据结构展开，因此我们需要熟练掌握这几种数据结构。<br>数组和字符串是两种最为基础的数据结构，它们利用连续的内存存放数字和字符。而链表和树则是面试频率相对较高的数据结构。由于操作链表和树时需要操作相当数量的指针，因此在解决相关问题时，要特别重视相应的<strong>鲁棒性</strong>，否则容易出现程序崩溃的问题。栈与递归密切相关，而队列也和 BFS（广度优先遍历算法）密切相关，深刻理解这几种数据结构可以帮助我们解决很多问题。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>参照<a href="/posts/ee37e52/index.html">《剑指 offer》笔记一</a></p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>字符串是由若干字符组成的序列。由于字符串在编程时使用的频率非常高。为了优化，许多语言会对它做特殊的规定，下面，我们从<code>C/C++</code>的字符串入手，讨论下它的特性。<br><code>C/C++</code>字符串以<code>\0</code>作为结尾，这使得我们能够很方便地定位其尾部；同时因为这个特点，我们很容易造成字符串的越界，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 我们先声明一个长度为 10 的字符数组</span></span><br><span class="line"><span class="built_in">strcpy</span>(str, <span class="string">"0123456789"</span>);</span><br><span class="line"><span class="comment">// 将字符串 0123456789 复制到字符数组中</span></span><br></pre></td></tr></table></figure>
+<p>这段代码的问题出在哪里呢？</p>
+<details><summary>查看解析</summary><br>    <code>&quot;01234569789&quot;</code>这段字符串看起来只有<code>10</code>个字符，但实际上末尾还有一个<code>\0</code>字符，因此其实际长度为<code>11</code>字节。要正确地复制其，<code>str</code>的长度至少应为<code>11</code>。<br>    &nbsp;<br></details>
+
+<p>为了节省内存，<code>C/C++</code>把常量字符串放到单独的一个内存区域。当几个指针赋值给相同的常量字符串时，它们实际上会指向同样的内存地址。但是若用常量内存初始化数组，情况则会有所不同，考虑如下代码，它的运行结果是什么？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str1[] = <span class="string">"hello world"</span>;</span><br><span class="line">    <span class="keyword">char</span> str2[] = <span class="string">"hello world"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> *str3 = <span class="string">"hello world"</span>;</span><br><span class="line">    <span class="keyword">char</span> *str4 = <span class="string">"hello world"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (str1 == str2) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"str1 == str2\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"str1 != str2\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (str3 == str4) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"str3 == str4\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"str3 != str4\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<details><summary>查看答案与解析</summary><br>    答案是：<br>    str1 != str2<br>    str3 == str4<br>    <code>str1</code>和<code>str2</code>是两个字符串数组，我们会为它们分配两个长度为 12 字节的空间，并将 <code>&quot;hello world&quot;</code> 的内容分别复制到数组中去。这是两个初始地址不同的数组。故<code>str1</code>和<code>str2</code>的值不相同，第一行输出 <code>str1 != str2</code><br>    <code>str3</code>和<code>str4</code>是两个指针，我们无须为它们分配内存，而只需要将它们指向<code>&quot;hello world&quot;</code>在内存中的地址就可以了。由于 <code>&quot;hello world&quot;</code> 是一个常量字符串，在内存中仅有一个拷贝，因此<code>str3</code>和<code>str4</code>的值相同，第二行输出 <code>str3 == str4</code><br></details>
+
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><h4 id="题目一"><a href="#题目一" class="headerlink" title="题目一"></a>题目一</h4><p>下面，我们来看一道题目：</p>
+<blockquote>
+<p>题目：请实现一个函数，把字符串的每个空格替换为 <code>%20</code>。<br>示例输入：<br>“We are happy”<br>示例输出：<br>“We%20are%20happy”</p>
+</blockquote>
+<details><summary>题目背景题外话</summary><br>    在网络编程中，如果 URL 参数中含有特殊字符，例如空格、<code>#</code>等，则可能导致服务器端无法获得正确的参数值。我们需要将这些特殊符号转化为服务器可以识别的字符。通常是在<code>%</code>后跟上<code>ASCII</code>码的两位十六进制表示。例如空格的<code>ASCII</code>码为 32，也即是<code>0x20</code>，因此替换其为<code>%20</code>。同样的，<code>#</code>的<code>ASCII</code>码为35，也即是<code>0x23</code>，故替换为<code>%23</code>。<br>    &nbsp;<br></details>
+
+<p>看到这道题目，我们首先想到的是，一个空格字符替换成了<code>%20</code>，替换之后，整个数组在变长。如果是<strong>原地算法</strong>，就会覆盖字符串在后面的内存。若是创建新字符串，则可以分配足够多的空间，这就对应了两种解决方案。在这里，我们假设<strong>采用原地算法</strong>来解决这个问题。</p>
+<details><summary>什么是原地算法？</summary><br>    在计算机科学中，一个原地算法（in-place algorithm）基本上不需要额外辅助的数据结构，然而，允许少量额外的辅助变量来转换资料的算法。当算法运行时，输入的资料通常会被要输出的部分覆盖掉。<br>    &nbsp;<br></details>
+
+<p>当然，在这里我也给出一个自己写的非原地代码，这是较为简单的处理方案。</p>
+<details><summary>非原地算法示例代码</summary><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">replaceBlankToNewStr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *oriStr, <span class="keyword">int</span> length, <span class="keyword">char</span> *newStr)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// length for oriStr</span></span><br><span class="line">     <span class="keyword">if</span> (oriStr == <span class="literal">nullptr</span> || length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">int</span> spaceNum = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">         <span class="keyword">if</span> (oriStr[i] == <span class="string">' '</span>) &#123;</span><br><span class="line">             spaceNum++;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">int</span> newLength = length + spaceNum * <span class="number">2</span>;</span><br><span class="line">     <span class="keyword">int</span> indexOfOrigin = <span class="number">0</span>, indexOfNew = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">while</span> (indexOfNew &lt; newLength &amp;&amp; indexOfOrigin &lt; length) &#123;</span><br><span class="line">         <span class="keyword">if</span> (oriStr[indexOfOrigin] == <span class="string">' '</span>) &#123;</span><br><span class="line">             newStr[indexOfNew++] = <span class="string">'%'</span>;</span><br><span class="line">             newStr[indexOfNew++] = <span class="string">'2'</span>;</span><br><span class="line">             newStr[indexOfNew++] = <span class="string">'0'</span>;</span><br><span class="line">             indexOfOrigin++;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             newStr[indexOfNew++] = oriStr[indexOfOrigin++];</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     newStr[indexOfNew] = <span class="string">'\0'</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<p>现在我们考虑如何执行替换操作，最直观的做法从头到尾扫描字符串，若是遇到空格，便将空格后的所有字符向后移动两位，再将一个空格替换为三个字符。显然，这种方法是不够高效的。假设字符串长度为 n。对每个空格字符，需要移动后面$O(n)$个字符，若对于含有$O(n)$个空格字符的字符串而言，总的时间效率是$O(n^2)$。那么问题出在哪里呢？<br>我们发现很多字符移动了多次，能不能减少这个移动次数呢？答案是肯定的。我们将思维逆转过来，由从前向后替换，变成从后向前替换。<br>我们可以先遍历一次字符串，这样就能统计出空格总数，然后计算出替换的总长度。我们从字符串的末尾开始复制替换。首先准备两个指针，一个指向原始字符串末尾，一个指向替换之后的末尾。分别称其为$P_1$和$P_2$。接下来我们向前移动$P_1$，逐个复制其指向内容到$P_2$，直到遇到空格。当遇到空格后，$P_1$向前移动一格，$P_2$向前移动三格，插入<code>%20</code>。这样一来，每个字符只复制（移动）一次，总的时间复杂度为$O(n)$，比上述直观做法更快。</p>
+<details><summary>示例代码</summary><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">replaceBlank</span><span class="params">(<span class="keyword">char</span> <span class="built_in">string</span>[], <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="built_in">string</span> == <span class="literal">nullptr</span> || length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">int</span> originalLength = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">int</span> numberOfBlank = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">while</span> (<span class="built_in">string</span>[i] != <span class="string">'\0'</span>) &#123;</span><br><span class="line">         ++originalLength;</span><br><span class="line">         <span class="keyword">if</span> (<span class="built_in">string</span>[i] == <span class="string">' '</span>) &#123;</span><br><span class="line">             ++numberOfBlank;</span><br><span class="line">         &#125;</span><br><span class="line">         i++;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">int</span> newLength = originalLength + numberOfBlank * <span class="number">2</span>;</span><br><span class="line">     <span class="keyword">if</span> (newLength &gt; length) &#123;</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">int</span> indexOfOriginal = originalLength;</span><br><span class="line">     <span class="keyword">int</span> indexOfNew = newLength;</span><br><span class="line">     <span class="keyword">while</span> (indexOfOriginal &gt;= <span class="number">0</span> &amp;&amp; indexOfNew &gt; indexOfOriginal) &#123;</span><br><span class="line">         <span class="keyword">if</span> (<span class="built_in">string</span>[indexOfOriginal] == <span class="string">' '</span>) &#123;</span><br><span class="line">             <span class="built_in">string</span>[indexOfNew--] = <span class="string">'0'</span>;</span><br><span class="line">             <span class="built_in">string</span>[indexOfNew--] = <span class="string">'2'</span>;</span><br><span class="line">             <span class="built_in">string</span>[indexOfNew--] = <span class="string">'%'</span>;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             <span class="built_in">string</span>[indexOfNew--] = <span class="built_in">string</span>[indexOfOriginal];</span><br><span class="line">         &#125;</span><br><span class="line">         --indexOfOriginal;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<h3 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h3><blockquote>
+<p>现有两个排序的数组$A_1$和$A_2$，内存在$A_1$的末尾有足够多的空余空间容纳$A_2$。请实现一个函数，把$A_2$所有数字插入$A_1$,并且所有数字是排序的。</p>
+</blockquote>
+<details><summary>解题思路</summary><br>    和前面的例题一致，直观的想法是在$A_1$中从头到尾复制数字，但这也会出现多次复制一个数字的情况。最好的方法是从尾到头比较$A_1$和$A_2$中的数字，并把较大数字复制到$A_1$中的合适位置。<br>    &nbsp;<br></details>
+
+
+<details><summary>示例代码</summary><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">linkSortedArray</span><span class="params">(<span class="keyword">int</span> a1[], <span class="keyword">const</span> <span class="keyword">int</span> a2[], <span class="keyword">int</span> elemOfA1, <span class="keyword">int</span> elemOfA2, <span class="keyword">int</span> lengthOfA1)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Assert a1 is longer enough to storage a2</span></span><br><span class="line">    <span class="keyword">if</span> (elemOfA1 + elemOfA2 &gt; lengthOfA1) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> pA1 = elemOfA1 - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> pA2 = elemOfA2 - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> pA = elemOfA1 + elemOfA2 - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (pA &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pA1 &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            a1[pA--] = a2[pA2--];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pA2 &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            a1[pA--] = a1[pA1--];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (a1[pA1] &lt; a2[pA2]) &#123;</span><br><span class="line">                a1[pA--] = a2[pA2--];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                a1[pA--] = a1[pA1--];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><h3 id="基础概念-1"><a href="#基础概念-1" class="headerlink" title="基础概念"></a>基础概念</h3><p>链表应该是考察较为频繁的数据结构。它的结构很简单，它由指针把若干节点连接成链状结构。链表的创建、插入节点、删除节点等操作都只需要 20 行左右的代码即可实现。另外，由于其是一种动态数据结构，需要对指针进行操作，因此需要有良好的编程功底才能写好相关代码。<br>为什么说链表是动态结构？我们在创建链表时，不需要知道它的长度。当插入一个节点时，我们只需要为新节点分配内存，然后调整指针的指向来确保新节点被链接到链表当中。内存分配不是在创建链表时一次性完成的，而是每添加一个节点分配一次内存。由于没有限制内存，链表的空间效率比数组高。如果单向链表的结构定义如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> m_nValue;</span><br><span class="line">    ListNode* m_pNext;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>那么往该链表末尾添加一个节点的 C++ 代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addToTail</span><span class="params">(ListNode **pHead, <span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    ListNode* pNew = <span class="keyword">new</span> ListNode();</span><br><span class="line">    pNew -&gt; m_nValue = value;</span><br><span class="line">    pNew -&gt; m_pNext = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(*pHead == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">        *pHead = pNew;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        ListNode *pNode = *pHead;</span><br><span class="line">        <span class="keyword">while</span>(pNode -&gt; m_pNext != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            pNode = pNode -&gt; m_pNext;</span><br><span class="line">        &#125;</span><br><span class="line">        pNode -&gt; m_pNext = pNew;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这段代码中，我们要特别注意第一个参数<code>pHead</code>是指向指针的指针。当我们往一个空链表插入节点时，新插入的节点就是链表的头指针。此时会改动头指针，因此必须将<code>pHead</code>参数设为指向指针的指针，否则出了函数后<code>pHead</code>仍然是一个空指针。<br>由于链表内存不是一次性分配的，因而我们无法保证链表内存和数组的连续性。因此，若要在链表内找到其第 i 个节点，我们只能从头开始，逐个遍历链表，时间效率为$O(n)$，对应的，数组的时间效率为$O(1)$。下面是在链表中寻找第一个含有某值的节点并删除之的代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">removeNode</span><span class="params">(ListNode **pHead, <span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(pHead == <span class="literal">nullptr</span>|| *phead == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode *pToBeDeleted = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">if</span>((*pHead) -&gt; m_nValue == value)&#123;</span><br><span class="line">        pToBeDeleted = *pHead;</span><br><span class="line">        *pHead = (*pHead) -&gt; m_pNext;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        ListNode *pNode = *pHead;</span><br><span class="line">        <span class="keyword">while</span>(pNode -&gt; m_pNext != <span class="literal">nullptr</span> &amp;&amp; pNode -&gt;m_pNext-&gt;m_nValue != value)&#123;</span><br><span class="line">            pNode = pNode -&gt; m_pNext;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pNode -&gt; m_pNext != <span class="literal">nullptr</span> &amp;&amp; pNode -&gt; m_pNext -&gt; m_nValue == value)&#123;</span><br><span class="line">            pToBeDeleted = pNode -&gt; m_pNext;</span><br><span class="line">            pNode -&gt; m_pNext = pNode -&gt; m_pNext -&gt; m-&gt;pNext;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pToBeDeleted != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">        <span class="keyword">delete</span> pToBeDeleted;</span><br><span class="line">        pToBeDeleted = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="题目分析-1"><a href="#题目分析-1" class="headerlink" title="题目分析"></a>题目分析</h3><h4 id="题目一-1"><a href="#题目一-1" class="headerlink" title="题目一"></a>题目一</h4><p>下面，我们看一道例题：</p>
+<blockquote>
+<p>题目：输入一个链表的头节点，从尾到头反过来打印出每个节点，链表节点定义如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> m_nKey;</span><br><span class="line">    ListNode* m_pNext;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>通常来讲，打印是一个只读操作，我们不希望打印时修改内容。因此在这里我们不能修改链表的结构。</p>
+<details><summary>题外话</summary><br>    除了题目中的这种结构，还存在一种常用的链表结构，称之为<strong>双向链表</strong>。它的每个节点都有两个指针，分别指向直接后继和直接前驱。所以，从双向链表中的任意一个结点开始，都可以很方便地访问它的前驱结点和后继结点。有时候也会构造<strong>双向循环链表</strong>（首尾相连）。它的节点结构通常是这样的：<br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> m_nKey;</span><br><span class="line">    ListNode* m_pNext;</span><br><span class="line">    ListNode* m_pPrev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<details><summary>解析与示例代码</summary><br>    我们很容易地想到解决这个问题需要遍历链表，顺序是从头到尾，而遍历却是从尾到头。这就是典型的“先进后出”，因此可以考虑使用<code>栈</code>这种数据结构来实现。实现代码如下：<br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printListNodeReversinglyIteratively</span><span class="params">(ListNode *pHead)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;ListNode *&gt; nodes;</span><br><span class="line">    ListNode *pNode = pHead;</span><br><span class="line">    <span class="keyword">while</span> (pNode != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        nodes.push(pNode);</span><br><span class="line">        pNode = pNode-&gt;m_pNext;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!nodes.empty()) &#123;</span><br><span class="line">        pNode = nodes.top();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\t"</span>, pNode-&gt;m_nValue);</span><br><span class="line">        nodes.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><br>    既然考虑到了栈，而<code>递归</code>本质上也就是一个栈结构，因此也可以使用递归来实现它。我们每访问一个节点，先递归输出它后面的节点，再输出自身，如此一来便反过来了：<br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printListNodeReversinglyRecursively</span><span class="params">(ListNode *pHead)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pHead != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pHead-&gt;m_pNext != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            printListNodeReversinglyRecursively(pHead-&gt;m_pNext);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\t"</span>, pHead-&gt;m_nValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>    当然，需要注意的是，递归代码虽然看着很简洁，但也存在问题：如果链表很长，那么函数递归调用的层级就会很深，有可能导致函数调用的<code>栈溢出</code>。因此还是使用<code>迭代法</code>的栈代码的鲁棒性比较好。<br><br></details>
+
+<h3 id="课后习题-1"><a href="#课后习题-1" class="headerlink" title="课后习题"></a>课后习题</h3><blockquote>
+<p>题目：定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。结构与函数定义如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Definition for singly-linked list.</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span></span>;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<details><summary>解题思路</summary><br>    和前面的例题一致，可以考虑使用迭代或者递归的方式来解决。<br>    &nbsp;<br></details>
+
+
+<details><summary>示例代码</summary><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 迭代法</span></span><br><span class="line">    ListNode *cur = head, *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        ListNode* tmp = cur-&gt;next;</span><br><span class="line">        cur-&gt;next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归法</span></span><br><span class="line"><span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> recur(head, <span class="literal">nullptr</span>);          </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode* res = recur(cur-&gt;next, cur);</span><br><span class="line">    cur-&gt;next = pre;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/ee37e52/index.html" rel="next" title="《剑指 Offer》笔记一">
+                <i class="fa fa-chevron-left"></i> 《剑指 Offer》笔记一
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDQ4NS8yMTAxNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/blog-logo.jpg" alt="Chin">
+            
+              <p class="site-author-name" itemprop="name">Chin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">1.2.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.3.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目一"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">题目一</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后习题"><span class="nav-number">1.3.3.</span> <span class="nav-text">课后习题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表"><span class="nav-number">1.4.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目分析-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目一-1"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">题目一</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后习题-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">课后习题</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

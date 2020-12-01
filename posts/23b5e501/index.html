@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,基础,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于内联函数和引用变量的一些内容">
+<meta name="keywords" content="C++,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer Plus 学习笔记七">
+<meta property="og:url" content="http://dzdcyj.github.io/posts/23b5e501/index.html">
+<meta property="og:site_name" content="CYJ的个人博客">
+<meta property="og:description" content="关于内联函数和引用变量的一些内容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-01T12:36:30.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Primer Plus 学习笔记七">
+<meta name="twitter:description" content="关于内联函数和引用变量的一些内容">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dzdcyj.github.io/posts/23b5e501/">
+
+
+
+
+
+  <title>C++ Primer Plus 学习笔记七 | CYJ的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/DZDcyj"><img style=" position:absolute; top:0;left:0;border:0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CYJ的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/posts/23b5e501/index.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYJ的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ Primer Plus 学习笔记七</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-30T15:18:38+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于内联函数和引用变量的一些内容<br><a id="more"></a></p>
+<h2 id="C-内联函数"><a href="#C-内联函数" class="headerlink" title="C++内联函数"></a>C++内联函数</h2><h3 id="什么是内联函数？"><a href="#什么是内联函数？" class="headerlink" title="什么是内联函数？"></a>什么是内联函数？</h3><p>内联函数是C++为提高程序运行速度所做的一项改进，常规函数和内联函数的主要区别不在于编写方式。而在于编译器如何将它们组合到程序中。  </p>
+<h3 id="程序的运行过程"><a href="#程序的运行过程" class="headerlink" title="程序的运行过程"></a>程序的运行过程</h3><p>编译过程的最终产物是可执行程序——由一组机器语言指令组成。运行程序时，操作系统将这些指令载入到计算机内存中，因此每条指令都有特定的内存地址。计算机随后将逐步执行这些指令。有时(例如循环/分支语句)，将跳过一些指令，向前或向后跳到特定地址。常规函数调用也使程序跳到另一个地址(函数的地址)，并在函数结束后返回。下面更详细地介绍这一过程。执行到函数调用指令时，程序将在函数调用后立即存储该指令的内存地址，并将函数复制到堆栈(为此保留的内存块)，跳到标记函数起点的内存单元，执行函数代码(也许还需将返回值放入到寄存器中)，然后跳回到地址被保存的指令处(这与阅读文章时停下来看脚注，并在阅读完脚注后返回以前阅读的地方类似)。来回跳跃并记录跳跃位置意味着以前使用函数时，需要一定的开销。  </p>
+<h3 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h3><p>C++内联函数提供了另一种选择。内联函数的编译代码与其他程序代码“内联”起来了。也就是说，编译器将使用相应的函数代码替代函数调用。对于内联代码，程序无需跳到另一个位置处执行代码，再跳回来。因此，内联函数的运行速度比常规函数稍快，但代价是需要占用更多内存。如果程序在10个不同的地方调用同一个内联函数，则该程序将包含该函数代码的10个副本。<br>应有选择地使用内联函数。如果执行函数代码地时间比处理函数调用机制的时间长，则节省的时间将只占整个过程中很小的一部分。如果代码执行时间很短，那么内联调用就可以节省非内联调用使用的大部分时间。另一方面，由于这个过程相当快，因此尽管节省了该过程的大部分时间，但节省的时间绝对值并不大，除非其经常被调用。<br>要使用这项特性，必须采取下述措施之一：</p>
+<ul>
+<li>在函数声明前加上关键字inline；</li>
+<li>在函数定义前加上关键字inline。</li>
+</ul>
+<p>通常的做法是省略原型，将整个定义(即函数头和所有函数代码)放在本应提供原型的地方。<br>当然，内联函数只是对编译器的一种建议，编译器完全可以忽略你的建议。如果提供的函数过大或是调用了自己(内联函数不能递归)，编译器可能不会将其作为内联函数。<br>下面是一个实例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// inline.cpp -- using an inline function</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// an inline function definition</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">square</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123; <span class="keyword">return</span> x * x; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">	<span class="keyword">double</span> a, b;</span><br><span class="line">	<span class="keyword">double</span> c = <span class="number">13.0</span>;</span><br><span class="line"></span><br><span class="line">	a = square(<span class="number">5.0</span>);</span><br><span class="line">	b = square(<span class="number">4.5</span> + <span class="number">7.5</span>);	<span class="comment">// can pass expressions</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"a = "</span> &lt;&lt; a &lt;&lt; <span class="string">", b = "</span> &lt;&lt; b &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"c = "</span> &lt;&lt; c;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">", c squared = "</span> &lt;&lt; square(c++) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Now c = "</span> &lt;&lt; c &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>它通过内联函数square()(计算参数的平方)演示了内联技术。注意到整个函数定义都放在一行中，但不一定非要这样做。然而，如果函数定义占用多行(假定没有使用冗长的标识符)，则将其作为内联函数就不大合适。<br>下面是该程序的输出：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">25</span>, b = <span class="number">144</span></span><br><span class="line">c = <span class="number">13</span>, c squared = <span class="number">169</span></span><br><span class="line">Now c = <span class="number">14</span></span><br></pre></td></tr></table></figure></p>
+<p>输出表明，内联函数与常规函数一样，也是按值来传递参数的。如果参数为表达式，如上面的4.5+7.5，则函数将传递表达式的值(这里为12)。这使得C++的内联功能远远胜过C语言的宏定义。<br>尽管函数没有提供独立原型，但C++原型特性仍在起作用。这是因为在函数首次使用前出现的整个函数定义充当了原型。这意味着可以给square()传递int或long值，将值传递给函数前，程序自动将这个值强制转换为double类型。</p>
+<h4 id="内联与宏"><a href="#内联与宏" class="headerlink" title="内联与宏"></a>内联与宏</h4><p>inline工具是C++新增的特性。C语言使用预处理器语句#define来提供宏——内敛代码的原始实现。例如，下面是一个计算平方的宏：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQUARE(X) X*X</span></span><br></pre></td></tr></table></figure></p>
+<p>这并不是通过传递参数实现的，而是通过文本替换实现的——X是“参数的符号标记”。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = SQUARE(<span class="number">5.0</span>); is replaced by a = <span class="number">5.0</span> * <span class="number">5.0</span>;</span><br><span class="line">b = SQUARE(<span class="number">4.5</span>+<span class="number">7.5</span>); is replaced by b = <span class="number">4.5</span> + <span class="number">7.5</span> * <span class="number">4.5</span> + <span class="number">7.5</span>;</span><br><span class="line">d = SQUARE(c++); is replaced by d = c++ * c++;</span><br></pre></td></tr></table></figure></p>
+<p>上述示例只有第一个能正常工作。可以通过括号来改进：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQUARE(X) ((X)*(X))</span></span><br></pre></td></tr></table></figure></p>
+<p>但仍然存在这样的问题，即宏不能按值传递。即使使用新的定义，SQUARE(C++)仍将c递增2次，但是之前的inline.cpp中的内联函数square()计算c的结果，传递它，以计算其平方值，然后将c递增一次。<br>这里的目的不是演示如何编写C宏，而是要指出，如果使用C语言的宏执行了类似函数的功能，应考虑将它们转换为C++内联函数。</p>
+<h2 id="引用变量"><a href="#引用变量" class="headerlink" title="引用变量"></a>引用变量</h2><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>C++新增了一种复合类型——引用变量。引用是一顶一的变量的别名(另一个名称)。例如，如果将twain作为element变量的引用，则可以交替使用twain和element来表示该变量。那么，这种别名有何作用呢？它的主要作用是用作函数的形参，通过引用变量作为参数，函数将使用原始数据，而不是其副本。这样，除指针以外，引用也为函数处理大型结构提供了一种非常方便的途径，同时对于设计类来说，引用也是必不可少的。</p>
+<h4 id="创建引用变量"><a href="#创建引用变量" class="headerlink" title="创建引用变量"></a>创建引用变量</h4><p>C和C++使用&amp;符号来表示变量的地址。C++给&amp;符号赋予了另一个含义，将其用来声明引用。例如，要将rodents作为rats变量的别名，可以这样做：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> rats;</span><br><span class="line"><span class="keyword">int</span> &amp; rodents = rats;	<span class="comment">// makes rodents an alias for rats</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，&amp;不是地址运算符，而是类型标识符的一部分。就像声明中的char*指的是指向char的指针一样，int &amp;指的是指向int的引用。上述引用声明允许将rats和rodents呼唤——它们指向相同的值和内存单元，参看以下程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// firstref.cpp -- defining and using a reference</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">	<span class="keyword">int</span> rats = <span class="number">101</span>;</span><br><span class="line">	<span class="keyword">int</span> &amp; rodents = rats;	<span class="comment">// rodents is a reference</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"rats = "</span> &lt;&lt; rats;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">", rodents = "</span> &lt;&lt; rodents &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	rodents++;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"rats = "</span> &lt;&lt; rats;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">", rodents = "</span> &lt;&lt; rodents &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// some implementations require type casting the following</span></span><br><span class="line"><span class="comment">// addresses to type unsigned</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"rats address = "</span> &lt;&lt; &amp;rats;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">", rodents address = "</span> &lt;&lt; &amp;rodents &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，下述语句中的&amp;运算符不是地址运算符，而是将rodents的类型声明为int &amp;，即指向int变量的引用：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp; rodents = rats;</span><br></pre></td></tr></table></figure></p>
+<p>不过，下述语句中的&amp;则是地址运算符，其中&amp;rodents表示rodents引用的变量的地址：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">", rodents address = "</span> &lt;&lt; &amp;rodents &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure></p>
+<p>下面是上述程序的输出：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rats = 101, rodents = 101</span><br><span class="line">rats = 102, rodents = 102</span><br><span class="line">rats<span class="built_in"> address </span>= 0x0065fd48, rodents<span class="built_in"> address </span>= 0x0065fd48</span><br></pre></td></tr></table></figure></p>
+<p>从中可知，rats和rodents的值和地址都相同(具体的地址和显示格式随系统而异)。将rodents加1将影响这两个变量。更准确地说，rodents++操作将一个有两个名称的变量加1。</p>
+<h4 id="将引用作为函数参数"><a href="#将引用作为函数参数" class="headerlink" title="将引用作为函数参数"></a>将引用作为函数参数</h4><p>引用经常被用作函数参数，使得函数中的变量名成为调用程序中的变量的别名。这种传递参数的方法成为按引用传递。按引用传递允许被调用的函数能够访问调用函数中的变量。C++新增的这项特性是对C语言的超越，C语言只能按值传递。按值传递导致被调用函数使用调用程序的值的拷贝。当然，C语言也允许避开按值传递的限制，采用按指针传递的方式。<br>参看下列程序代码，它演示了几种交换两个变量的值的函数：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swaps.cpp -- swapping with references and with pointers</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapr</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span>;	<span class="comment">// a, b are aliases for ints</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapp</span><span class="params">(<span class="keyword">int</span> *p, <span class="keyword">int</span> *q)</span></span>;	<span class="comment">// p, q are addresses of ints</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapv</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;	<span class="comment">// a,b are new variables</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">	<span class="keyword">int</span> wallet1 = <span class="number">300</span>;</span><br><span class="line">	<span class="keyword">int</span> wallet2 = <span class="number">350</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"wallet1 = $"</span> &lt;&lt; wallet1;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">" wallet2= $"</span> &lt;&lt; wallet2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Using reference to swap contents:\n"</span>;</span><br><span class="line">	swapr(wallet1, wallet2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"wallet1 = $"</span> &lt;&lt; wallet1;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">" wallet2= $"</span> &lt;&lt; wallet2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Using pointers to swap contents again:\n"</span>;</span><br><span class="line">	swapp(&amp;wallet1, &amp;wallet2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"wallet1 = $"</span> &lt;&lt; wallet1;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">" wallet2= $"</span> &lt;&lt; wallet2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Trying to use passing by value:\n"</span>;</span><br><span class="line">	swapv(wallet1, wallet2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"wallet1 = $"</span> &lt;&lt; wallet1;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">" wallet2= $"</span> &lt;&lt; wallet2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapr</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span>	<span class="comment">// use references</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp;</span><br><span class="line">	temp = a;		<span class="comment">// use a, b for values of variables</span></span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapp</span><span class="params">(<span class="keyword">int</span> *p, <span class="keyword">int</span> *q)</span>	<span class="comment">// use pointers</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp;</span><br><span class="line">	temp = *p;		<span class="comment">// use *p, *q for values of variables</span></span><br><span class="line">	*p = *q;</span><br><span class="line">	*q = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swapv</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span>	<span class="comment">// try using values</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp;</span><br><span class="line">	temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面是程序的输出：<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wallet1 = $30<span class="number">0</span> wallet2 = $35<span class="number">0</span>		&lt;&lt; original <span class="keyword">values</span></span><br><span class="line">Using references to swap contents:</span><br><span class="line">wallet1 = $35<span class="number">0</span> wallet2 = $30<span class="number">0</span>		&lt;&lt; <span class="keyword">values</span> swapped</span><br><span class="line">Using pointers to swap contents:</span><br><span class="line">wallet1 = $30<span class="number">0</span> wallet2 = $35<span class="number">0</span>		&lt;&lt; <span class="keyword">values</span> swapped again</span><br><span class="line">Trying to <span class="keyword">use</span> passing by value:</span><br><span class="line">wallet1 = $30<span class="number">0</span> wallet2 = $35<span class="number">0</span>		&lt;&lt; swap failed</span><br></pre></td></tr></table></figure></p>
+<p>正如预想那样，指针和引用方法都成功地交换了两个钱夹(wallet)中的内容，而按值传递的方法没能完成此项任务。<br>引用的其他使用方法我们将在后续学习。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/9449ca47/index.html" rel="next" title="C++ Primer Plus 学习笔记六">
+                <i class="fa fa-chevron-left"></i> C++ Primer Plus 学习笔记六
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/588f728e/index.html" rel="prev" title="Lua应用">
+                Lua应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDQ4NS8yMTAxNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/blog-logo.jpg" alt="Chin">
+            
+              <p class="site-author-name" itemprop="name">Chin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-内联函数"><span class="nav-number">1.</span> <span class="nav-text">C++内联函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是内联函数？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是内联函数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序的运行过程"><span class="nav-number">1.2.</span> <span class="nav-text">程序的运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内联函数"><span class="nav-number">1.3.</span> <span class="nav-text">内联函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内联与宏"><span class="nav-number">1.3.1.</span> <span class="nav-text">内联与宏</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用变量"><span class="nav-number">2.</span> <span class="nav-text">引用变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">2.1.</span> <span class="nav-text">引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建引用变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">创建引用变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将引用作为函数参数"><span class="nav-number">2.1.2.</span> <span class="nav-text">将引用作为函数参数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
