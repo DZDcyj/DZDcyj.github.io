@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C++,基础,">
+  <meta name="keywords" content="C++,基础,算法,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="关于循环的一些内容">
-<meta name="keywords" content="C++,基础">
+<meta name="description" content="《剑指 Offer》中树的基础部分">
+<meta name="keywords" content="C++,基础,算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ Primer Plus 学习笔记四">
-<meta property="og:url" content="http://dzdcyj.github.io/posts/8fb26001/index.html">
+<meta property="og:title" content="《剑指 Offer》笔记三">
+<meta property="og:url" content="http://dzdcyj.github.io/posts/ac9a45b7/index.html">
 <meta property="og:site_name" content="CYJ的个人博客">
-<meta property="og:description" content="关于循环的一些内容">
+<meta property="og:description" content="《剑指 Offer》中树的基础部分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-12-01T12:36:30.301Z">
+<meta property="og:updated_time" content="2020-12-02T11:37:59.280Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++ Primer Plus 学习笔记四">
-<meta name="twitter:description" content="关于循环的一些内容">
+<meta name="twitter:title" content="《剑指 Offer》笔记三">
+<meta name="twitter:description" content="《剑指 Offer》中树的基础部分">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://dzdcyj.github.io/posts/8fb26001/">
+  <link rel="canonical" href="http://dzdcyj.github.io/posts/ac9a45b7/">
 
 
 
 
 
-  <title>C++ Primer Plus 学习笔记四 | CYJ的个人博客</title>
+  <title>《剑指 Offer》笔记三 | CYJ的个人博客</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/posts/8fb26001/index.html">
+    <link itemprop="mainEntityOfPage" href="http://dzdcyj.github.io/posts/ac9a45b7/index.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chin">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C++ Primer Plus 学习笔记四</h1>
+          <h1 class="post-title" itemprop="name headline">《剑指 Offer》笔记三</h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T22:07:17+08:00">
-                2019-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-02T18:30:15+08:00">
+                2020-12-02
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  2k 字
                 </span>
               
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -415,23 +415,37 @@
       
 
       
-        <p>关于循环的一些内容<br>
-<a id="more"></a>
-</p>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="编写延时循环"><a href="#编写延时循环" class="headerlink" title="编写延时循环"></a>编写延时循环</h3><p>有时候，我们需要让程序等待一段时间。在之前的C语言课程设计之中，使用了Sleep(int milliseconds)函数来处理这个事情。while循环也可用于这种目的，一种早期的用于个人计算机的技术是，让其进行计数，以等待一段时间：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> wait = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (wait &lt; <span class="number">10000</span>)</span><br><span class="line">	wait++;		<span class="comment">// counting silently</span></span><br></pre></td></tr></table></figure></p>
-<p>但潜在的问题是这受到计算机处理器处理速度的影响。更好的方法是用系统时钟来完成此项工作。<br>ANSI C和C++库中有一个函数有助于完成这样一项工作。这个函数就是clock()，返回程序开始执行后所用的系统时间。这有几个问题：首先，返回的时间单位不一定为秒；其次，返回值的类型与系统有关，可能是long也可能是unsigned long或其他。<br>头文件ctime(较早的实现中使用time.h)提供了解决方案。首先，它定义了一个符号常量——CLOCKS_PER_SEC，该常量等于每秒钟包含的系统时间单位数。因此将系统时间除以这个常量可以得到秒数，或是将秒数诚意CLOCK_PER_SEC就可以得到以系统时间单位为单位的时间。其次，ctime将clock_t作为clock()返回类型的别名(将会在后面提起)，这意味着可以将变量声明为clock_t类型，编译器将进行转换以适应系统。<br>下列程序演示了使用clock()和头文件ctime创建延时循环：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// waiting.cpp -- using clock() in a time-delay loop</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;	// describes clock() function, clock_t type</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Enter the delay time, in seconds: "</span>;</span><br><span class="line">	<span class="keyword">float</span> secs;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; secs;</span><br><span class="line">	<span class="keyword">clock_t</span> delay = secs * CLOCKS_PER_SEC;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"starting\a\n"</span>;</span><br><span class="line">	<span class="keyword">clock_t</span> start = clock();</span><br><span class="line">	<span class="keyword">while</span> (clock() - start &lt; delay);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"done \a\n"</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该程序以系统时间为单位计算延迟时间，避免了在每轮循环中将系统时间转换为秒。  </p>
-<h4 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h4><p>C++为类型建立别名的方式有两种。一种是使用预处理器：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE char <span class="comment">// preprocessor replaces BYTE with char</span></span></span><br></pre></td></tr></table></figure></p>
-<p>这样，预处理器将在编译程序时用char替换所有的BYTE，从而使BYTE成为char的别名。<br>第二种方法是使用C++(和C)的关键字typedef来创建别名。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> type;</span><br></pre></td></tr></table></figure></p>
-<p>下面是通用格式：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> typeName aliasName;</span><br></pre></td></tr></table></figure></p>
-<p>换句话说，如果要将aliasName作为某种类型的别名，可以声明aliasName，如同将aliasName声明为这种类型的变量那样，然后在声明的前面加上关键字typedef。例如，要让byte_pointer成为char指针的别名，可将byte_pointer声明为char指针，然后在前面加上typedef：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> * byte_pointer;	<span class="comment">// pointer to char type</span></span><br></pre></td></tr></table></figure></p>
-<p>也可以使用#define，不过声明一系列变量时，这种方法不适用。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FLOAT_POINTER float *</span></span><br><span class="line">FLOAT_POINTER pa, pb;</span><br></pre></td></tr></table></figure></p>
-<p>预处理器将声明转换为这样：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> * pa, pb;	<span class="comment">// pa a pointer to float, pb just a float</span></span><br></pre></td></tr></table></figure></p>
-<p>typedef方法不会有这样的问题。它能够处理更复杂的类型别名。<br><strong>注意，typedef不会创建新类型，</strong>而只是为已有的类型创建一个新名称。  </p>
-<h3 id="基于范围的for循环-C-11"><a href="#基于范围的for循环-C-11" class="headerlink" title="基于范围的for循环(C++11)"></a>基于范围的for循环(C++11)</h3><p>C++11新增了一种循环：基于范围(range-based)的for循环。这简化了一种常见的循环任务：对数组(或容器类，如vector和array)的每个元素执行相同的操作，如下例所示：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> prices[<span class="number">5</span>] = &#123;<span class="number">4.99</span>, <span class="number">10.99</span>, <span class="number">6.87</span>, <span class="number">7.99</span>, <span class="number">8.49</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">double</span> x : prices)</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure></p>
-<p>其中，x最初表示数组prices的第一个元素。显示第一个元素后不断执行循环，而x依次表示数组的其他元素。<br>要修改数组的元素，需要使用不同的循环变量语法：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">double</span> &amp;x : prices)</span><br><span class="line">	x = x * <span class="number">0.80</span>;</span><br></pre></td></tr></table></figure></p>
-<p>符号&amp;表明x是一个引用变量，这个将在后面学习。就这里而言，这种声明可以修改数组的内容，而第一种语法不行。<br>还可以结合使用基于范围的for循环和初始化列表：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x : &#123;<span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">6</span>&#125;)</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" "</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">'\n'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然而，这种循环主要用于后面的各种模板容器类。</p>
+        <p>《剑指 Offer》中树的基础部分<br><a id="more"></a></p>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>数据结构一直是面试的重点，大多数会围绕着数组、字符串、链表、树、栈、队列等几种常见的数据结构展开，因此我们需要熟练掌握这几种数据结构。<br>数组和字符串是两种最为基础的数据结构，它们利用连续的内存存放数字和字符。而链表和树则是面试频率相对较高的数据结构。由于操作链表和树时需要操作相当数量的指针，因此在解决相关问题时，要特别重视相应的<strong>鲁棒性</strong>，否则容易出现程序崩溃的问题。栈与递归密切相关，而队列也和 BFS（广度优先遍历算法）密切相关，深刻理解这几种数据结构可以帮助我们解决很多问题。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>参照<a href="/posts/ee37e52/index.html">《剑指 offer》笔记一</a></p>
+<h2 id="字符串和链表"><a href="#字符串和链表" class="headerlink" title="字符串和链表"></a>字符串和链表</h2><p>参照<a href="/posts/356350fb/index.html">《剑指 offer》笔记二</a></p>
+<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>树是一种在实际编程中经常遇到的数据结构。它的逻辑很简单：除了根节点之外，每个节点只有一个父节点，根节点没有父节点；除了叶节点外的所有节点都有一个或多个子节点，叶节点没有子节点。父节点和子节点之间利用指针连接。由于树的操作会涉及到大量的指针，因此和树相关的题目都相对复杂。<br>一般我们提到的树，大多数是<strong>二叉树</strong>。所谓二叉树，是树的一种特殊结构：每个节点最多只能有两个子节点。在二叉树中最重要的操作莫过于是遍历，即按照某一顺序访问树中的所有节点。通常存在以下三种遍历方式：</p>
+<blockquote>
+<p>前序遍历：先访问根节点，再访问左子节点，最后访问右子节点。<br>中序遍历：先访问左子节点，再访问根节点，最后访问右子节点。<br>后序遍历：先访问左子节点，再访问右子节点，最后访问根节点。<br>例如，下列二叉树：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">10</span></span><br><span class="line">   /  \</span><br><span class="line">  <span class="number">6</span>    <span class="number">14</span></span><br><span class="line"> / \   / \</span><br><span class="line"><span class="number">4</span>   <span class="number">8</span> <span class="number">12</span>  <span class="number">16</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<details><summary>查看遍历结果</summary><br><br>    它的遍历如下：<br>    前序遍历：10 6 4 8 14 12 16<br>    中序遍历：4 6 8 10 12 14 16<br>    后序遍历：4 8 6 12 16 14 10<br>    &nbsp;<br><br></details>
+
+<p>这三种遍历都有递归/循环两种不同的实现方法，每种遍历的递归实现都比循环实现简洁许多。此外，我们还有另外两种的遍历方式：</p>
+<details><summary>深度优先搜素</summary><br><br>    深度优先搜索算法（英语：Depth-First-Search，DFS）是一种用于遍历或搜索树或图的算法。这个算法会尽可能深的搜索树的分支。当节点v的所在边都己被探寻过，搜索将回溯到发现节点v的那条边的起始节点。这一过程一直进行到已发现从源节点可达的所有节点为止。如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。<br>    &nbsp;<br><br></details>
+
+<details><summary>广度优先搜素</summary><br><br>    广度优先搜索算法（英语：Breadth-First Search，缩写为BFS），又译作宽度优先搜索，或横向优先搜索，是一种图形搜索算法。简单的说，BFS是从根节点开始，沿着树的宽度遍历树的节点。如果所有节点均被访问，则算法中止。<br>    &nbsp;<br><br></details>
+
+<p>二叉树有许多的特例，例如<strong>二叉搜索树</strong>。在二叉搜索树中，左子节点总是小于等于根节点，右子节点总是大于等于根节点。我们可以在平均$O(logn)$的时间内根据数值在二叉搜索树中找到一个节点。<br>另外的两个特例是<strong>堆</strong>和<strong>红黑树</strong>。堆分为<strong>最大堆</strong>和<strong>最小堆</strong>。在最大堆中，根节点值最大，最小堆中根节点值最小。许多需要快速查找最大值/最小值的问题都可以用堆来解决。<br>而红黑树则是把树中的节点分为红、黑两种颜色，并通过规则确保根节点到叶节点的最长路径长度不超过最短路径的两倍。在<code>C++</code>的<code>STL</code>中，<code>set</code>、<code>multiset</code>、<code>map</code>、<code>multimap</code>等数据结构都是基于红黑树来实现的。红黑树的实现则相对复杂。<s>儿子 4 岁了还不会手写红黑树，怎么办？</s></p>
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><h4 id="题目一"><a href="#题目一" class="headerlink" title="题目一"></a>题目一</h4><p>下面我们来看一道例题：</p>
+<blockquote>
+<p>题目：输入某二叉树的前序遍历和中序遍历结果，重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不包含重复数字。二叉树的节点定义如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span>                 m_nValue;</span><br><span class="line">    BinaryTreeNode*     m_pLeft;</span><br><span class="line">    BinaryTreeNode*     m_pRight;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<details><summary>广度优先搜素</summary><br><br>    前序遍历的第一个数字是根结点的值，而扫描中序遍历序列可以确定根结点的值的位置。也即是可以划分左右子树。那么我们对于左右子树也可以通过递归的方式来构建他们。<br>    &nbsp;<br><br></details>
+
+<details><br>    <summary>示例代码</summary><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BinaryTreeNode *<span class="title">construct</span><span class="params">(<span class="keyword">int</span> *preOrder, <span class="keyword">int</span> *inOrder, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (preOrder == <span class="literal">nullptr</span> || inOrder == <span class="literal">nullptr</span> || length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> constructCore(preOrder, preOrder + length - <span class="number">1</span>, inOrder, inOrder + length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BinaryTreeNode *<span class="title">constructCore</span><span class="params">(<span class="keyword">int</span> *startPreorder, <span class="keyword">int</span> *endPreorder, <span class="keyword">int</span> *startInorder, <span class="keyword">int</span> *endInorder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The first value in preOrder is the value of root</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> rootValue = startPreorder[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">auto</span> *root = <span class="keyword">new</span> BinaryTreeNode();</span><br><span class="line">    root-&gt;m_nValue = rootValue;</span><br><span class="line">    root-&gt;m_pLeft = root-&gt;m_pRight = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (startPreorder == endPreorder) &#123;</span><br><span class="line">        <span class="keyword">if</span> (startInorder == endInorder &amp;&amp; *startPreorder == *startInorder) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Invalid input."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> *rootInorder = startInorder;</span><br><span class="line">    <span class="keyword">while</span> (rootInorder &lt;= endInorder &amp;&amp; *rootInorder != rootValue) &#123;</span><br><span class="line">        ++rootInorder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rootInorder == endInorder &amp;&amp; *rootInorder != rootValue) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"Invalid input"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> leftLength = rootInorder - startInorder;</span><br><span class="line">    <span class="keyword">int</span> *leftPreorderEnd = startPreorder + leftLength;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (leftLength &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// Build the left subtree</span></span><br><span class="line">        root-&gt;m_pLeft = constructCore(startPreorder + <span class="number">1</span>, leftPreorderEnd, startInorder, rootInorder - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (leftLength &lt; endPreorder - startPreorder) &#123;</span><br><span class="line">        root-&gt;m_pRight = constructCore(leftPreorderEnd + <span class="number">1</span>, endPreorder, rootInorder + <span class="number">1</span>, endInorder);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>    在函数<code>constructCore</code>中，我们先根据前序遍历的第一个数字创建根节点，接下来在中序遍历序列中找到根节点的位置，这样就能够确定左右子树节点的数量。在前序遍历和中序遍历序列中划分了左、右子树节点的值后，我们就可以递归地调用函数<code>constructCore</code>去分别构建它的左右子树。<br></details>
+
+<h3 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h3><blockquote>
+<p>给定一科二叉树和其中的一个节点，如何找出中序遍历序列的下一个节点？树中的节点除了有两个分别指向左、右子节点的指针外，还有一个指向父节点的指针。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> m_nValue;</span><br><span class="line">    BinaryTreeNodet *m_pLeft;</span><br><span class="line">    BinaryTreeNode *m_pRight;</span><br><span class="line">    BinaryTreeNode *m_pParent;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<details><summary>解题思路</summary><br>    如果一个节点有右子树，那么它的下一个节点就是它的右子树的最左节点。也就是说，从右节点出发一直沿着指向左子节点的指针，我们就能找到它的下一个节点。<br>    如果一个节点没有右子树。分情况考虑：如果节点是它父节点的左子节点，那么它的下一个节点就是它的父节点。<br>    如果一个节点既没有右子树，并且它还是它父节点的右子节点。我们可以沿着父节点指针一直向上遍历，直到找到一个它父节点的左子节点的节点。如果存在，则是我们要寻找的下一个节点。<br>    &nbsp;<br></details>
+
+<details><summary>示例代码</summary><br><br>    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BinaryTreeNode *<span class="title">getNext</span><span class="params">(BinaryTreeNode *pNode)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pNode == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    BinaryTreeNode *pNext = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">if</span> (pNode-&gt;m_pRight != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        BinaryTreeNode *pRight = pNode-&gt;m_pRight;</span><br><span class="line">        <span class="keyword">while</span> (pRight-&gt;m_pLeft != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            pRight = pRight-&gt;m_pLeft;</span><br><span class="line">        &#125;</span><br><span class="line">        pNext = pRight;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pNode-&gt;m_pParent != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        BinaryTreeNode *pCurrent = pNode;</span><br><span class="line">        BinaryTreeNode *pParent = pNode-&gt;m_pParent;</span><br><span class="line">        <span class="keyword">while</span> (pParent != <span class="literal">nullptr</span> &amp;&amp; pCurrent == pParent-&gt;m_pRight) &#123;</span><br><span class="line">            pCurrent = pParent;</span><br><span class="line">            pParent = pParent-&gt;m_pParent;</span><br><span class="line">        &#125;</span><br><span class="line">        pNext = pParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pNext;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
 
       
     </div>
@@ -453,6 +467,8 @@
           
             <a href="/tags/基础/" rel="tag"># 基础</a>
           
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
         </div>
       
 
@@ -464,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/c3600c1f/index.html" rel="next" title="C++ Primer Plus 学习笔记三">
-                <i class="fa fa-chevron-left"></i> C++ Primer Plus 学习笔记三
+              <a href="/posts/356350fb/index.html" rel="next" title="《剑指 Offer》笔记二">
+                <i class="fa fa-chevron-left"></i> 《剑指 Offer》笔记二
               </a>
             
           </div>
@@ -473,10 +489,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/41d06200/index.html" rel="prev" title="HTML5 学习笔记一">
-                HTML5 学习笔记一 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">1.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写延时循环"><span class="nav-number">1.1.</span> <span class="nav-text">编写延时循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类型别名"><span class="nav-number">1.1.1.</span> <span class="nav-text">类型别名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于范围的for循环-C-11"><span class="nav-number">1.2.</span> <span class="nav-text">基于范围的for循环(C++11)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">1.2.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和链表"><span class="nav-number">1.3.</span> <span class="nav-text">字符串和链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树"><span class="nav-number">1.4.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础概念"><span class="nav-number">1.4.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目分析"><span class="nav-number">1.4.2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目一"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">题目一</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后习题"><span class="nav-number">1.4.3.</span> <span class="nav-text">课后习题</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1160,6 +1172,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
